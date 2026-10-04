@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f5f5f5;
+  --foreground: #192841;
+  --primary: #192841;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Shopee Address Card Envelope Ribbon */
+.shopee-envelope-line {
+  height: 3px;
+  width: 100%;
+  background-position-x: -30px;
+  background-size: 116px 3px;
+  background-image: repeating-linear-gradient(45deg, #6fa6d6, #6fa6d6 33px, transparent 0, transparent 41px, #f18d9b 0, #f18d9b 74px, transparent 0, transparent 82px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f4f6f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cad6e4;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #192841;
+}
+
+/* Shimmer animation for skeletons */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.animate-shimmer::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.4) 20%,
+    rgba(255, 255, 255, 0.6) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 2s infinite;
+  content: "";
+}
+
+/* Subtle float animation */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.animate-float {
+  animation: float-slow 3s ease-in-out infinite;
+}
+
+/* Product Rich Description Typography */
+.product-rich-description h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.product-rich-description h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+}
+.product-rich-description p {
+  margin-bottom: 0.75rem;
+  line-height: 1.65;
+}
+.product-rich-description ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.product-rich-description ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.product-rich-description li {
+  margin-bottom: 0.25rem;
+}
+.product-rich-description blockquote {
+  border-left: 3px solid #192841;
+  padding-left: 0.75rem;
+  font-style: italic;
+  color: #475569;
+  margin: 0.75rem 0;
+}
+.product-rich-description a {
+  color: #192841;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.product-rich-description hr {
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+  margin: 1.25rem 0;
+}
