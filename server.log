@@ -72,4 +72,9 @@ USER FOUND IN DB: admin@shopdee.local ROLE: admin
  ✓ Ready in 20.4s
 LOGIN ATTEMPT: admin@shopdee.local
 USER FOUND IN DB: admin@shopdee.local ROLE: admin
-^C
+^C   ▲ Next.js 15.5.25
+   - Local:        http://localhost:3000
+   - Network:      http://116.118.9.158:3000
+
+ ✓ Starting...
+ ✓ Ready in 3.8s
