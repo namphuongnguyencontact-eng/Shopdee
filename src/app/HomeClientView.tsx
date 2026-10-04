@@ -334,10 +334,21 @@ export default function HomeClientView({
               >
                 <div className="w-11 h-11 sm:w-14 sm:h-14 overflow-hidden mb-1.5 bg-slate-50 rounded-full flex items-center justify-center group-hover:scale-105 transition-transform border border-slate-100/80">
                   {cat.image ? (
-                    <img src={cat.image} alt={cat.name} className="w-full h-full object-cover" />
-                  ) : (
-                    <Tag className="w-5 h-5 text-[#192841]" />
-                  )}
+                    <img
+                      src={cat.image}
+                      alt={cat.name}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const parent = e.currentTarget.parentElement;
+                        if (parent) {
+                          const fallback = parent.querySelector('.fallback-icon');
+                          if (fallback) fallback.classList.remove('hidden');
+                        }
+                      }}
+                    />
+                  ) : null}
+                  <Tag className={`w-5 h-5 text-[#192841] ${cat.image ? 'hidden fallback-icon' : ''}`} />
                 </div>
                 <h3 className="text-[10px] sm:text-xs font-medium text-slate-700 group-hover:text-[#192841] line-clamp-2 leading-tight">
                   {cat.name}

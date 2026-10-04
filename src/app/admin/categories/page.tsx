@@ -151,10 +151,11 @@ export default function AdminCategoriesPage() {
       return;
     }
 
-    // 1. Tải và hiển thị ngay lập tức trên website (0ms)
+    // 1. Tải và hiển thị ngay preview trên giao diện
     const instantPreviewUrl = URL.createObjectURL(file);
+    const previousImage = formData.image;
     setFormData((prev) => ({ ...prev, image: instantPreviewUrl }));
-    addToast("info", "Đang xử lý ảnh từ thiết bị...");
+    addToast("info", "Đang tải ảnh lên máy chủ...");
 
     try {
       setIsUploadingImage(true);
@@ -169,25 +170,14 @@ export default function AdminCategoriesPage() {
       const json = await res.json();
       if (json.success && json.data?.url) {
         setFormData((prev) => ({ ...prev, image: json.data.url }));
-        addToast("success", "Tải ảnh từ thiết bị lên thành công!");
+        addToast("success", "Tải ảnh lên máy chủ thành công!");
       } else {
-        // Fallback to FileReader base64 so image is never lost
-        const reader = new FileReader();
-        reader.onload = () => {
-          const base64 = reader.result as string;
-          setFormData((prev) => ({ ...prev, image: base64 }));
-          addToast("success", "Đã lưu ảnh danh mục thành công!");
-        };
-        reader.readAsDataURL(file);
+        setFormData((prev) => ({ ...prev, image: previousImage }));
+        addToast("error", json.error?.message || "Tải ảnh lên thất bại. Vui lòng thử lại.");
       }
     } catch {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64 = reader.result as string;
-        setFormData((prev) => ({ ...prev, image: base64 }));
-        addToast("success", "Đã lưu ảnh danh mục thành công!");
-      };
-      reader.readAsDataURL(file);
+      setFormData((prev) => ({ ...prev, image: previousImage }));
+      addToast("error", "Lỗi kết nối khi tải ảnh lên máy chủ.");
     } finally {
       setIsUploadingImage(false);
       if (fileInputRef.current) {
@@ -275,6 +265,11 @@ export default function AdminCategoriesPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isUploadingImage) {
+      addToast("info", "Vui lòng đợi ảnh tải lên máy chủ hoàn tất trước khi lưu!");
+      return;
+    }
+
     if (!formData.name.trim()) {
       addToast("error", "Vui lòng nhập tên danh mục");
       return;
@@ -293,13 +288,19 @@ export default function AdminCategoriesPage() {
         try {
           const response = await fetch(finalImageUrl);
           const blob = await response.blob();
-          finalImageUrl = await new Promise<string>((resolve) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve((reader.result as string) || "");
-            reader.readAsDataURL(blob);
+          const uploadData = new FormData();
+          const ext = blob.type.split("/")[1] || "png";
+          uploadData.append("file", new File([blob], `category.${ext}`, { type: blob.type }));
+          const res = await fetch("/api/admin/categories/upload", {
+            method: "POST",
+            body: uploadData,
           });
+          const json = await res.json();
+          if (json.success && json.data?.url) {
+            finalImageUrl = json.data.url;
+          }
         } catch (err) {
-          console.error("Error converting blob to base64:", err);
+          console.error("Error uploading blob to server:", err);
         }
       }
 
@@ -485,10 +486,21 @@ export default function AdminCategoriesPage() {
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-xl bg-neutral-950 border border-white/10 overflow-hidden shrink-0 flex items-center justify-center">
                           {cat.image ? (
-                            <img src={cat.image} alt={cat.name} className="w-full h-full object-cover" />
-                          ) : (
-                            <Tag className="w-5 h-5 text-neutral-500" />
-                          )}
+                            <img
+                              src={cat.image}
+                              alt={cat.name}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                                const parent = e.currentTarget.parentElement;
+                                if (parent) {
+                                  const fallback = parent.querySelector('.fallback-icon');
+                                  if (fallback) fallback.classList.remove('hidden');
+                                }
+                              }}
+                            />
+                          ) : null}
+                          <Tag className={`w-5 h-5 text-neutral-500 ${cat.image ? 'hidden fallback-icon' : ''}`} />
                         </div>
                         <div className="max-w-xs">
                           <p className="font-bold text-white hover:text-pink-400 transition-colors">
@@ -803,10 +815,10 @@ export default function AdminCategoriesPage() {
                 </button>
                 <button
                   type="submit"
-                  disabled={submitting}
+                  disabled={submitting || isUploadingImage}
                   className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold cursor-pointer shadow-lg shadow-pink-600/20 disabled:opacity-50 transition"
                 >
-                  {submitting ? "Đang Lưu..." : editingCategory ? "Lưu Thay Đổi" : "Tạo Danh Mục"}
+                  {submitting ? "Đang Lưu..." : isUploadingImage ? "Đang Tải Ảnh..." : editingCategory ? "Lưu Thay Đổi" : "Tạo Danh Mục"}
                 </button>
               </div>
             </form>

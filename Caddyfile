@@ -1,4 +1,12 @@
 shopdeevn.online, www.shopdeevn.online {
     encode gzip zstd
-    reverse_proxy 127.0.0.1:3000
+
+    handle /uploads/* {
+        root * "c:/Users/Administrator/Shopdee/public"
+        file_server
+    }
+
+    handle {
+        reverse_proxy 127.0.0.1:3000
+    }
 }

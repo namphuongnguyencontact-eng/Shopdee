@@ -70,12 +70,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const MAX_SIZE = 10 * 1024 * 1024; // 10MB
+    const MAX_SIZE = 15 * 1024 * 1024; // 15MB
     if (file.size > MAX_SIZE) {
       return NextResponse.json(
         {
           success: false,
-          error: { message: `Kích thước tệp quá lớn (${(file.size / 1024 / 1024).toFixed(1)}MB). Giới hạn tối đa là 10MB.` },
+          error: { message: `Kích thước tệp quá lớn (${(file.size / 1024 / 1024).toFixed(1)}MB). Giới hạn tối đa là 15MB.` },
         },
         { status: 400 }
       );

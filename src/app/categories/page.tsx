@@ -34,10 +34,21 @@ export default async function CategoriesPage() {
               <div className="flex items-center justify-between mb-4">
                 <div className="w-14 h-14 rounded-2xl bg-blue-50 overflow-hidden flex items-center justify-center border border-slate-100">
                   {cat.image ? (
-                    <img src={cat.image} alt={cat.name} className="w-full h-full object-cover group-hover:scale-105 transition" />
-                  ) : (
-                    <Tag className="w-7 h-7 text-blue-600" />
-                  )}
+                    <img
+                      src={cat.image}
+                      alt={cat.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const parent = e.currentTarget.parentElement;
+                        if (parent) {
+                          const fallback = parent.querySelector('.fallback-icon');
+                          if (fallback) fallback.classList.remove('hidden');
+                        }
+                      }}
+                    />
+                  ) : null}
+                  <Tag className={`w-7 h-7 text-blue-600 ${cat.image ? 'hidden fallback-icon' : ''}`} />
                 </div>
                 <span className="text-xs font-bold px-2.5 py-1 bg-slate-100 text-slate-700 rounded-full">
                   {cat.productCount || 12} sản phẩm
