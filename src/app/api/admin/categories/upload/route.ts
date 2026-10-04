@@ -16,9 +16,25 @@ export async function POST(req: NextRequest) {
     }
 
     const contentType = req.headers.get("content-type") || "";
+
+    // Case 1: Base64 data URL via JSON
+    if (contentType.includes("application/json")) {
+      const { imageBase64 } = await req.json();
+      if (!imageBase64 || typeof imageBase64 !== "string") {
+        return NextResponse.json(
+          { success: false, error: { message: "Dữ liệu ảnh không hợp lệ." } },
+          { status: 400 }
+        );
+      }
+      return NextResponse.json({
+        success: true,
+        data: { url: imageBase64 },
+      });
+    }
+
     if (!contentType.includes("multipart/form-data")) {
       return NextResponse.json(
-        { success: false, error: { message: "Định dạng gửi không hợp lệ (cần multipart/form-data)." } },
+        { success: false, error: { message: "Định dạng gửi không hợp lệ." } },
         { status: 400 }
       );
     }

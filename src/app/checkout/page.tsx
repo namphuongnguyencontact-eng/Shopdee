@@ -30,9 +30,11 @@ export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState<"SIMULATED_COD" | "SIMULATED_CARD">("SIMULATED_COD");
 
   const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("0901234567");
-  const [address, setAddress] = useState("88 Đường Nguyễn Huệ, Phường Bến Nghé");
-  const [city, setCity] = useState("TP. Hồ Chí Minh");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [hasDefaultAddress, setHasDefaultAddress] = useState(false);
+  const [isEditingAddress, setIsEditingAddress] = useState(false);
 
   // Simulation loading overlay
   const [isProcessing, setIsProcessing] = useState(false);
@@ -45,7 +47,29 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     if (user) {
-      setFullName(user.name);
+      if (user.defaultShippingAddress?.address && user.defaultShippingAddress?.phone) {
+        setFullName(user.defaultShippingAddress.fullName || user.name || "");
+        setPhone(user.defaultShippingAddress.phone);
+        setAddress(user.defaultShippingAddress.address);
+        setCity(user.defaultShippingAddress.city || "TP. Hồ Chí Minh");
+        setHasDefaultAddress(true);
+        setIsEditingAddress(false);
+      } else if (user.address && user.phone) {
+        setFullName(user.name || "");
+        setPhone(user.phone);
+        setAddress(user.address);
+        setCity(user.city || "TP. Hồ Chí Minh");
+        setHasDefaultAddress(true);
+        setIsEditingAddress(false);
+      } else {
+        // First-time purchase: MUST fill information, NO fake autofill
+        setFullName(user.name || "");
+        setPhone("");
+        setAddress("");
+        setCity("");
+        setHasDefaultAddress(false);
+        setIsEditingAddress(true);
+      }
     }
   }, [user]);
 
@@ -66,6 +90,28 @@ export default function CheckoutPage() {
     if (!user) {
       showToast({ type: "error", message: "Vui lòng đăng nhập để hoàn tất đơn hàng." });
       router.push("/login?redirect=/checkout");
+      return;
+    }
+
+    // Require all shipping information
+    if (!fullName.trim() || !phone.trim() || !address.trim() || !city.trim()) {
+      showToast({
+        type: "error",
+        title: "Thiếu thông tin nhận hàng",
+        message: "Vui lòng điền đầy đủ họ tên, số điện thoại, địa chỉ nhận hàng và tỉnh/thành phố.",
+      });
+      setIsEditingAddress(true);
+      return;
+    }
+
+    const cleanPhone = phone.replace(/\D/g, "");
+    if (cleanPhone.length < 9 || cleanPhone.length > 11) {
+      showToast({
+        type: "error",
+        title: "Số điện thoại không hợp lệ",
+        message: "Vui lòng nhập số điện thoại hợp lệ (từ 9 đến 11 số).",
+      });
+      setIsEditingAddress(true);
       return;
     }
 
@@ -90,10 +136,10 @@ export default function CheckoutPage() {
             variantName: it.variantName,
           })),
           shippingAddress: {
-            fullName: fullName || user.name,
-            phone,
-            address,
-            city,
+            fullName: fullName.trim(),
+            phone: phone.trim(),
+            address: address.trim(),
+            city: city.trim(),
             isSimulated: true,
           },
           voucherCode: appliedVoucher?.code,
@@ -113,6 +159,9 @@ export default function CheckoutPage() {
       setProcessStep(3);
       await new Promise((r) => setTimeout(r, 600));
 
+      // Refresh auth to load newly saved defaultShippingAddress
+      await checkAuth();
+
       // Clear local cart
       await clearCart();
 
@@ -124,7 +173,6 @@ export default function CheckoutPage() {
     }
   };
 
-  const [isEditingAddress, setIsEditingAddress] = useState(false);
   const [buyerNote, setBuyerNote] = useState("");
 
   return (
@@ -158,60 +206,82 @@ export default function CheckoutPage() {
                 <span>Địa Chỉ Nhận Hàng</span>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setIsEditingAddress(!isEditingAddress)}
-                className="text-xs font-semibold text-blue-600 hover:text-blue-800 transition"
-              >
-                {isEditingAddress ? "Xong" : "Thay Đổi"}
-              </button>
+              {hasDefaultAddress && (
+                <button
+                  type="button"
+                  onClick={() => setIsEditingAddress(!isEditingAddress)}
+                  className="text-xs font-semibold text-blue-600 hover:text-blue-800 transition cursor-pointer"
+                >
+                  {isEditingAddress ? "Xong" : "Thay Đổi"}
+                </button>
+              )}
             </div>
 
+            {/* Notice for first time buyer */}
+            {!hasDefaultAddress && (
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded-xs text-xs text-amber-800 flex items-start gap-2">
+                <span className="font-bold text-amber-600">ℹ️ Lưu ý:</span>
+                <span>
+                  Quý khách vui lòng điền thông tin nhận hàng bên dưới. Sau khi hoàn tất mua hàng, hệ thống sẽ <strong>tự động lưu địa chỉ này làm mặc định</strong> cho các lần mua sắm tiếp theo!
+                </span>
+              </div>
+            )}
+
             {/* Address Display or Edit Form */}
-            {isEditingAddress ? (
+            {isEditingAddress || !hasDefaultAddress ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs border-t border-slate-100">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Họ và tên người nhận</label>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    Họ và tên người nhận <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="text"
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Nguyễn Minh Châu"
+                    placeholder="Ví dụ: Nguyễn Văn A"
                     className="w-full h-9 px-3 rounded-xs border border-slate-300 outline-none focus:border-[#192841]"
                   />
                 </div>
 
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Số điện thoại</label>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    Số điện thoại nhận hàng <span className="text-red-500">*</span>
+                  </label>
                   <input
-                    type="text"
+                    type="tel"
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="0901234567"
+                    placeholder="Ví dụ: 0912345678"
                     className="w-full h-9 px-3 rounded-xs border border-slate-300 outline-none focus:border-[#192841]"
                   />
                 </div>
 
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Tỉnh / Thành phố</label>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    Tỉnh / Thành phố <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="text"
                     required
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
+                    placeholder="Ví dụ: TP. Hồ Chí Minh hoặc Hà Nội..."
                     className="w-full h-9 px-3 rounded-xs border border-slate-300 outline-none focus:border-[#192841]"
                   />
                 </div>
 
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Địa chỉ nhận hàng chi tiết</label>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    Địa chỉ nhận hàng chi tiết <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="text"
                     required
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
+                    placeholder="Số nhà, tên đường, phường/xã, quận/huyện..."
                     className="w-full h-9 px-3 rounded-xs border border-slate-300 outline-none focus:border-[#192841]"
                   />
                 </div>

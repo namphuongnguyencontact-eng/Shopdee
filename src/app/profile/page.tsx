@@ -54,7 +54,7 @@ interface OrderSummaryItem {
 }
 
 export default function ProfilePage() {
-  const { user, checkAuth } = useAuthStore();
+  const { user, checkAuth, setUser } = useAuthStore();
   const { productIds: wishlistIds } = useWishlistStore();
   const { items: cartItems } = useCartStore();
 
@@ -112,9 +112,16 @@ export default function ProfilePage() {
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) {
-      showToast({ type: "error", message: "Kích thước ảnh tối đa 5MB." });
+    if (file.size > 10 * 1024 * 1024) {
+      showToast({ type: "error", message: "Kích thước ảnh tối đa 10MB." });
       return;
+    }
+
+    // Tải và hiển thị ngay lập tức (0ms) từ thiết bị
+    const instantPreviewUrl = URL.createObjectURL(file);
+    setEditAvatar(instantPreviewUrl);
+    if (user) {
+      setUser({ ...user, avatar: instantPreviewUrl });
     }
 
     setIsUploadingAvatar(true);
@@ -129,6 +136,9 @@ export default function ProfilePage() {
       const json = await res.json();
       if (json.success && json.data?.url) {
         setEditAvatar(json.data.url);
+        if (user) {
+          setUser({ ...user, avatar: json.data.url });
+        }
         await checkAuth();
         showToast({
           type: "success",
@@ -141,6 +151,9 @@ export default function ProfilePage() {
         reader.onload = async () => {
           const base64 = reader.result as string;
           setEditAvatar(base64);
+          if (user) {
+            setUser({ ...user, avatar: base64 });
+          }
           await fetch("/api/upload/avatar", {
             method: "POST",
             headers: { "Content-Type": "application/json" },

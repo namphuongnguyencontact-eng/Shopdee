@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useCompareStore } from "@/store/useCompareStore";
 import { useCartStore } from "@/store/useCartStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import { formatVND } from "@/lib/utils";
 import { showToast } from "@/store/useToastStore";
 
@@ -25,6 +26,17 @@ export default function CompareModal() {
   if (!isModalOpen) return null;
 
   const handleAddToCart = (product: (typeof items)[0]) => {
+    const user = useAuthStore.getState().user;
+    if (!user) {
+      showToast({
+        type: "info",
+        title: "Yêu cầu đăng nhập",
+        message: "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.",
+      });
+      window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+      return;
+    }
+
     addItem({
       productId: product._id,
       name: product.name,
@@ -36,7 +48,6 @@ export default function CompareModal() {
       quantity: 1,
     });
     setIsDrawerOpen(true);
-    showToast("success", `Đã thêm "${product.name}" vào giỏ hàng`);
   };
 
   return (

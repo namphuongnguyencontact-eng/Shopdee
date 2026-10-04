@@ -18,12 +18,24 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [gender, setGender] = useState("");
+  const [birthDate, setBirthDate] = useState("");
   const [understood, setUnderstood] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!gender) {
+      setError("Vui lòng chọn giới tính (thông tin bắt buộc).");
+      return;
+    }
+
+    if (!birthDate) {
+      setError("Vui lòng chọn ngày sinh (thông tin bắt buộc).");
+      return;
+    }
+
     if (!understood) {
       setError("Vui lòng đồng ý với Điều khoản sử dụng & Chính sách bảo mật.");
       return;
@@ -51,6 +63,8 @@ export default function RegisterPage() {
           username: username.trim().toLowerCase(),
           email: email.trim().toLowerCase(),
           password,
+          gender,
+          birthDate,
         }),
       });
       const json = await res.json();
@@ -177,6 +191,48 @@ export default function RegisterPage() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Nhập lại mật khẩu"
                   className="w-full h-10 px-3.5 rounded-xs border border-slate-300 outline-none focus:border-[#192841] text-xs font-normal"
+                />
+              </div>
+
+              {/* Giới tính (Bắt buộc) */}
+              <div>
+                <label className="block text-slate-700 font-bold mb-1 text-[11px]">
+                  Giới tính <span className="text-red-500">*</span>
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { val: "Nam", label: "Nam 👨" },
+                    { val: "Nữ", label: "Nữ 👩" },
+                    { val: "Khác", label: "Khác ✨" },
+                  ].map((g) => (
+                    <button
+                      key={g.val}
+                      type="button"
+                      onClick={() => setGender(g.val)}
+                      className={`h-9 px-2 rounded-xs border text-xs font-semibold flex items-center justify-center transition cursor-pointer ${
+                        gender === g.val
+                          ? "border-[#192841] bg-[#192841] text-white shadow-xs"
+                          : "border-slate-300 bg-white text-slate-700 hover:border-slate-400"
+                      }`}
+                    >
+                      {g.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Ngày sinh (Bắt buộc) */}
+              <div>
+                <label className="block text-slate-700 font-bold mb-1 text-[11px]">
+                  Ngày sinh <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="date"
+                  required
+                  max={new Date().toISOString().split("T")[0]}
+                  value={birthDate}
+                  onChange={(e) => setBirthDate(e.target.value)}
+                  className="w-full h-10 px-3.5 rounded-xs border border-slate-300 outline-none focus:border-[#192841] text-xs font-normal bg-white"
                 />
               </div>
 

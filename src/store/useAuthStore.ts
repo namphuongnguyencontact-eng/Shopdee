@@ -9,6 +9,13 @@ export interface UserProfile {
   avatar: string;
   phone?: string;
   address?: string;
+  city?: string;
+  defaultShippingAddress?: {
+    fullName: string;
+    phone: string;
+    address: string;
+    city: string;
+  } | null;
   gender?: string;
   birthDate?: string;
   level?: number;

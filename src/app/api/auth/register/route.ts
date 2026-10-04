@@ -8,11 +8,25 @@ export async function POST(req: NextRequest) {
   try {
     await connectDB();
     const body = await req.json();
-    const { name, username, email, password } = body;
+    const { name, username, email, password, gender, birthDate } = body;
 
     if (!name || !username || !email || !password) {
       return NextResponse.json(
         { success: false, error: { message: "Vui lòng điền đầy đủ các thông tin bắt buộc." } },
+        { status: 400 }
+      );
+    }
+
+    if (!gender || !gender.trim()) {
+      return NextResponse.json(
+        { success: false, error: { message: "Vui lòng chọn giới tính (thông tin bắt buộc)." } },
+        { status: 400 }
+      );
+    }
+
+    if (!birthDate || !birthDate.trim()) {
+      return NextResponse.json(
+        { success: false, error: { message: "Vui lòng chọn ngày sinh (thông tin bắt buộc)." } },
         { status: 400 }
       );
     }
@@ -45,7 +59,11 @@ export async function POST(req: NextRequest) {
       username: cleanUsername,
       email: cleanEmail,
       passwordHash,
-      avatar: `https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200`,
+      gender: gender.trim(),
+      birthDate: birthDate.trim(),
+      avatar: gender.trim() === "Nam"
+        ? "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200"
+        : "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200",
       role: "user",
       level: 1,
       xp: 0,
@@ -81,6 +99,8 @@ export async function POST(req: NextRequest) {
           email: newUser.email,
           role: newUser.role,
           avatar: newUser.avatar,
+          gender: newUser.gender,
+          birthDate: newUser.birthDate,
           level: newUser.level,
           xp: newUser.xp,
           walletBalance: newUser.walletBalance,

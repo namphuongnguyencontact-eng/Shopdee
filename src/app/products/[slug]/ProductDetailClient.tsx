@@ -117,6 +117,17 @@ export default function ProductDetailClient({
   }, [product._id]);
 
   const handleAddToCart = () => {
+    if (!user) {
+      showToast({
+        type: "info",
+        title: "Yêu cầu đăng nhập",
+        message: "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.",
+      });
+      const currentPath = typeof window !== "undefined" ? window.location.pathname + window.location.search : `/products/${product.slug}`;
+      router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
+      return;
+    }
+
     addItem({
       productId: product._id,
       name: product.name,
@@ -146,6 +157,17 @@ export default function ProductDetailClient({
   };
 
   const handleBuyNow = () => {
+    if (!user) {
+      showToast({
+        type: "info",
+        title: "Yêu cầu đăng nhập",
+        message: "Vui lòng đăng nhập để tiến hành mua ngay sản phẩm.",
+      });
+      const currentPath = typeof window !== "undefined" ? window.location.pathname + window.location.search : `/products/${product.slug}`;
+      router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
+      return;
+    }
+
     addItem({
       productId: product._id,
       name: product.name,

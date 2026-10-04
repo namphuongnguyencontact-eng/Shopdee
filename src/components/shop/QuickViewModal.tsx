@@ -7,6 +7,8 @@ import { ProductItem } from "./ProductCard";
 import { formatVND } from "@/lib/utils";
 import { useCartStore } from "@/store/useCartStore";
 import { useWishlistStore } from "@/store/useWishlistStore";
+import { useAuthStore } from "@/store/useAuthStore";
+import { showToast } from "@/store/useToastStore";
 
 interface QuickViewModalProps {
   product: ProductItem | null;
@@ -16,6 +18,7 @@ interface QuickViewModalProps {
 export default function QuickViewModal({ product, onClose }: QuickViewModalProps) {
   const { addItem } = useCartStore();
   const { isInWishlist, toggleWishlist } = useWishlistStore();
+  const { user } = useAuthStore();
 
   const [selectedVariant, setSelectedVariant] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
@@ -29,6 +32,16 @@ export default function QuickViewModal({ product, onClose }: QuickViewModalProps
   const currentVariant = selectedVariant || firstVariant?.options?.[0] || "Mặc định";
 
   const handleAddToCart = () => {
+    if (!user) {
+      showToast({
+        type: "info",
+        title: "Yêu cầu đăng nhập",
+        message: "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.",
+      });
+      window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+      return;
+    }
+
     addItem({
       productId: product._id,
       name: product.name,

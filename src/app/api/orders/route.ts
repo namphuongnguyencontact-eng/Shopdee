@@ -156,17 +156,35 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    // Validate shipping address
+    if (
+      !shippingAddress?.fullName?.trim() ||
+      !shippingAddress?.phone?.trim() ||
+      !shippingAddress?.address?.trim() ||
+      !shippingAddress?.city?.trim()
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: {
+            message: "Vui lòng điền đầy đủ thông tin giao hàng: Họ tên, Số điện thoại, Địa chỉ nhận hàng và Tỉnh/Thành phố.",
+          },
+        },
+        { status: 400 }
+      );
+    }
+
     // Create Order in MongoDB with SHIPPING status (delivering)
     const newOrder = await Order.create({
       orderNumber,
       userId: user._id,
       items: verifiedItems,
       shippingAddress: {
-        fullName: shippingAddress?.fullName || user.name,
-        phone: shippingAddress?.phone || "0901234567",
-        city: shippingAddress?.city || "TP. Hồ Chí Minh",
-        district: shippingAddress?.district || "Quận 1",
-        address: shippingAddress?.address || "123 Đường Mua Sắm SHOPDEE",
+        fullName: shippingAddress.fullName.trim(),
+        phone: shippingAddress.phone.trim(),
+        city: shippingAddress.city.trim(),
+        district: shippingAddress?.district || "",
+        address: shippingAddress.address.trim(),
         isSimulated: true,
       },
       subtotal,
@@ -200,6 +218,21 @@ export async function POST(req: NextRequest) {
           timestamp: new Date(),
         },
       ],
+    });
+
+    // Save this address as user's defaultShippingAddress for future purchases
+    await User.findByIdAndUpdate(user._id, {
+      $set: {
+        phone: shippingAddress.phone.trim(),
+        address: shippingAddress.address.trim(),
+        city: shippingAddress.city.trim(),
+        defaultShippingAddress: {
+          fullName: shippingAddress.fullName.trim(),
+          phone: shippingAddress.phone.trim(),
+          address: shippingAddress.address.trim(),
+          city: shippingAddress.city.trim(),
+        },
+      },
     });
 
     // Record product sales accurately

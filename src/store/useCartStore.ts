@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { showToast } from "./useToastStore";
+import { useAuthStore } from "./useAuthStore";
 
 export interface CartItem {
   productId: string;
@@ -86,6 +87,20 @@ export const useCartStore = create<CartState>((set, get) => ({
   },
 
   addItem: async (item) => {
+    const user = useAuthStore.getState().user;
+    if (!user) {
+      showToast({
+        type: "info",
+        title: "Yêu cầu đăng nhập",
+        message: "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.",
+      });
+      if (typeof window !== "undefined") {
+        const currentPath = window.location.pathname + window.location.search;
+        window.location.href = `/login?redirect=${encodeURIComponent(currentPath)}`;
+      }
+      return;
+    }
+
     const prevItems = get().items;
     const existingIndex = prevItems.findIndex(
       (i) => i.productId === item.productId && i.variantName === item.variantName

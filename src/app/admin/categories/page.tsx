@@ -146,10 +146,15 @@ export default function AdminCategoriesPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 10 * 1024 * 1024) {
-      addToast("error", "Kích thước ảnh quá lớn (tối đa 10MB)");
+    if (file.size > 15 * 1024 * 1024) {
+      addToast("error", "Kích thước ảnh quá lớn (tối đa 15MB)");
       return;
     }
+
+    // 1. Tải và hiển thị ngay lập tức trên website (0ms)
+    const instantPreviewUrl = URL.createObjectURL(file);
+    setFormData((prev) => ({ ...prev, image: instantPreviewUrl }));
+    addToast("info", "Đang xử lý ảnh từ thiết bị...");
 
     try {
       setIsUploadingImage(true);
@@ -166,10 +171,23 @@ export default function AdminCategoriesPage() {
         setFormData((prev) => ({ ...prev, image: json.data.url }));
         addToast("success", "Tải ảnh từ thiết bị lên thành công!");
       } else {
-        addToast("error", json.error?.message || "Tải ảnh lên thất bại");
+        // Fallback to FileReader base64 so image is never lost
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64 = reader.result as string;
+          setFormData((prev) => ({ ...prev, image: base64 }));
+          addToast("success", "Đã lưu ảnh danh mục thành công!");
+        };
+        reader.readAsDataURL(file);
       }
     } catch {
-      addToast("error", "Lỗi kết nối khi tải ảnh lên");
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64 = reader.result as string;
+        setFormData((prev) => ({ ...prev, image: base64 }));
+        addToast("success", "Đã lưu ảnh danh mục thành công!");
+      };
+      reader.readAsDataURL(file);
     } finally {
       setIsUploadingImage(false);
       if (fileInputRef.current) {
@@ -269,6 +287,22 @@ export default function AdminCategoriesPage() {
 
     try {
       setSubmitting(true);
+
+      let finalImageUrl = formData.image.trim();
+      if (finalImageUrl.startsWith("blob:")) {
+        try {
+          const response = await fetch(finalImageUrl);
+          const blob = await response.blob();
+          finalImageUrl = await new Promise<string>((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve((reader.result as string) || "");
+            reader.readAsDataURL(blob);
+          });
+        } catch (err) {
+          console.error("Error converting blob to base64:", err);
+        }
+      }
+
       if (editingCategory) {
         // Update
         const res = await fetch("/api/admin/categories", {
@@ -279,7 +313,7 @@ export default function AdminCategoriesPage() {
             name: formData.name.trim(),
             slug: formData.slug.trim(),
             description: formData.description.trim(),
-            image: formData.image.trim(),
+            image: finalImageUrl,
             order: Number(formData.order) || 0,
             subcategories: subcats,
             isActive: formData.isActive,
@@ -302,7 +336,7 @@ export default function AdminCategoriesPage() {
             name: formData.name.trim(),
             slug: formData.slug.trim(),
             description: formData.description.trim(),
-            image: formData.image.trim(),
+            image: finalImageUrl,
             order: Number(formData.order) || 0,
             subcategories: subcats,
           }),

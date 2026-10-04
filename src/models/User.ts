@@ -9,6 +9,13 @@ export interface IUser extends Document {
   avatar: string;
   phone?: string;
   address?: string;
+  city?: string;
+  defaultShippingAddress?: {
+    fullName: string;
+    phone: string;
+    address: string;
+    city: string;
+  };
   gender?: string;
   birthDate?: string;
   role: "user" | "admin";
@@ -30,6 +37,13 @@ const UserSchema = new Schema<IUser>(
     avatar: { type: String, default: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150" },
     phone: { type: String, default: "" },
     address: { type: String, default: "" },
+    city: { type: String, default: "" },
+    defaultShippingAddress: {
+      fullName: { type: String, default: "" },
+      phone: { type: String, default: "" },
+      address: { type: String, default: "" },
+      city: { type: String, default: "" },
+    },
     gender: { type: String, default: "" },
     birthDate: { type: String, default: "" },
     role: { type: String, enum: ["user", "admin"], default: "user" },
