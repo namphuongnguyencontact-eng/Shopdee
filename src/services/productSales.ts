@@ -1,15 +1,28 @@
 import { connectDB } from "@/lib/db";
 import Order from "@/models/Order";
 import Product from "@/models/Product";
+import User from "@/models/User";
 
 export class ProductSalesService {
   /**
    * Idempotently records product sales count when an order is completed.
+   * Completely excludes orders placed by Admin accounts.
    */
   async recordOrderSales(orderId: string): Promise<boolean> {
     await connectDB();
     const order = await Order.findById(orderId);
     if (!order) return false;
+
+    // Check if the order was placed by an Admin
+    if (order.userId) {
+      const buyerUser = await User.findById(order.userId).select("role").lean();
+      if (buyerUser?.role === "admin") {
+        order.salesRecorded = true;
+        order.salesRecordedAt = new Date();
+        await order.save();
+        return false;
+      }
+    }
 
     // Only record if order is in a successful state AND not already recorded
     const isSuccessful =
@@ -70,6 +83,7 @@ export class ProductSalesService {
 
   /**
    * Recalculates soldCount for all products based on Order database as single source of truth.
+   * Completely excludes orders placed by Admin accounts.
    */
   async recalculateAllProductSales(): Promise<{
     updatedProductsCount: number;
@@ -78,10 +92,15 @@ export class ProductSalesService {
   }> {
     await connectDB();
 
-    // 1. Fetch all valid non-cancelled orders
+    // 1. Fetch all admin user IDs
+    const adminUsers = await User.find({ role: "admin" }).select("_id").lean();
+    const adminUserIds = adminUsers.map((u) => u._id);
+
+    // 2. Fetch all valid non-cancelled orders from real customers
     const validOrders = await Order.find({
       orderStatus: { $ne: "CANCELLED" },
       paymentStatus: { $ne: "FAILED" },
+      userId: { $nin: adminUserIds },
     }).lean();
 
     // 2. Aggregate quantity per product

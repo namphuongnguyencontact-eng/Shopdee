@@ -5,6 +5,7 @@ export interface ITrafficSession extends Document {
   sessionId: string;
   visitorId: string;
   userId?: mongoose.Types.ObjectId;
+  isAdmin?: boolean;
   firstSeenAt: Date;
   lastSeenAt: Date;
   lastShoppingActivityAt?: Date;
@@ -36,6 +37,7 @@ const TrafficSessionSchema = new Schema<ITrafficSession>(
     sessionId: { type: String, required: true, unique: true, index: true },
     visitorId: { type: String, required: true, index: true },
     userId: { type: Schema.Types.ObjectId, ref: "User", index: true },
+    isAdmin: { type: Boolean, default: false, index: true },
     firstSeenAt: { type: Date, default: Date.now },
     lastSeenAt: { type: Date, default: Date.now, index: true },
     lastShoppingActivityAt: { type: Date, index: true },

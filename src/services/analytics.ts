@@ -4,10 +4,12 @@ import AnalyticsEvent, { AnalyticsEventType } from "@/models/AnalyticsEvent";
 import TrafficSession from "@/models/TrafficSession";
 import Product from "@/models/Product";
 import Order from "@/models/Order";
+import User from "@/models/User";
 import { liveMetricsService } from "@/services/liveMetrics";
 
 export interface LogEventParams {
   userId?: string;
+  isAdmin?: boolean;
   sessionId?: string;
   visitorId?: string;
   eventType: AnalyticsEventType;
@@ -25,39 +27,67 @@ export interface LogEventParams {
 
 export class AnalyticsService {
   /**
+   * Helper to retrieve all admin user ObjectIds to strictly exclude them from analytics reports.
+   */
+  async getAdminUserIds(): Promise<Types.ObjectId[]> {
+    try {
+      await connectDB();
+      const admins = await User.find({ role: "admin" }).select("_id").lean();
+      return admins.map((u) => u._id);
+    } catch {
+      return [];
+    }
+  }
+
+  /**
    * Logs an analytics event and updates associated sessions, products, and metrics.
+   * If the event belongs to an Admin, it is flagged with isAdmin: true and excluded from product ranking/views.
    */
   async logEvent(params: LogEventParams): Promise<void> {
     try {
       await connectDB();
 
+      let isAdmin = Boolean(params.isAdmin);
+      if (!isAdmin && params.userId) {
+        const u = await User.findById(params.userId).select("role").lean();
+        if (u?.role === "admin") {
+          isAdmin = true;
+        }
+      }
+
       // 1. Create Event
       await AnalyticsEvent.create({
         ...params,
+        isAdmin,
         createdAt: new Date(),
       });
 
-      // 2. Invalidate live metrics cache on key actions
-      if (params.eventType === "add_to_cart" || params.eventType === "order_completed" || params.eventType === "order_created") {
+      // 2. Invalidate live metrics cache on key actions (only if not admin)
+      if (!isAdmin && (params.eventType === "add_to_cart" || params.eventType === "order_completed" || params.eventType === "order_created")) {
         liveMetricsService.invalidateCache();
       }
 
       // 3. Update TrafficSession if sessionId is provided
       if (params.sessionId) {
-        const isShoppingAction = [
-          "product_view",
-          "search",
-          "add_to_wishlist",
-          "add_to_cart",
-          "remove_from_cart",
-          "checkout_start",
-          "virtual_payment_start",
-        ].includes(params.eventType);
+        const isShoppingAction =
+          !isAdmin &&
+          [
+            "product_view",
+            "search",
+            "add_to_wishlist",
+            "add_to_cart",
+            "remove_from_cart",
+            "checkout_start",
+            "virtual_payment_start",
+          ].includes(params.eventType);
 
         const updateFields: Record<string, unknown> = {
           lastSeenAt: new Date(),
         };
 
+        if (isAdmin) {
+          updateFields.isAdmin = true;
+        }
         if (params.path) {
           updateFields.currentPage = params.path;
         }
@@ -69,7 +99,7 @@ export class AnalyticsService {
         }
 
         const incFields: Record<string, number> = {};
-        if (params.eventType === "page_view") {
+        if (params.eventType === "page_view" && !isAdmin) {
           incFields.pageViewCount = 1;
         }
 
@@ -82,8 +112,8 @@ export class AnalyticsService {
         );
       }
 
-      // 4. Update Product counters (views, likes, cartAdds, shares, trendScore)
-      if (params.productId) {
+      // 4. Update Product counters only for real shoppers, NOT for Admin actions
+      if (params.productId && !isAdmin) {
         const product = await Product.findById(params.productId);
         if (product) {
           if (params.eventType === "product_view") product.viewCount = (product.viewCount || 0) + 1;
@@ -108,7 +138,7 @@ export class AnalyticsService {
   }
 
   /**
-   * Legacy funnel stats for admin summary.
+   * Funnel stats for admin summary - completely excludes Admin data.
    */
   async getFunnelStats(): Promise<{
     views: number;
@@ -118,24 +148,32 @@ export class AnalyticsService {
     shares: number;
   }> {
     await connectDB();
+    const adminIds = await this.getAdminUserIds();
+    const baseFilter = { isAdmin: { $ne: true }, userId: { $nin: adminIds } };
+
     const [views, cartAdds, checkoutStarts, orders, shares] = await Promise.all([
-      AnalyticsEvent.countDocuments({ eventType: "product_view" }),
-      AnalyticsEvent.countDocuments({ eventType: "add_to_cart" }),
-      AnalyticsEvent.countDocuments({ eventType: "checkout_start" }),
-      AnalyticsEvent.countDocuments({ eventType: "order_created" }),
-      AnalyticsEvent.countDocuments({ eventType: "share_order" }),
+      AnalyticsEvent.countDocuments({ eventType: "product_view", ...baseFilter }),
+      AnalyticsEvent.countDocuments({ eventType: "add_to_cart", ...baseFilter }),
+      AnalyticsEvent.countDocuments({ eventType: "checkout_start", ...baseFilter }),
+      AnalyticsEvent.countDocuments({ eventType: "order_created", ...baseFilter }),
+      AnalyticsEvent.countDocuments({ eventType: "share_order", ...baseFilter }),
     ]);
 
     return { views, cartAdds, checkoutStarts, orders, shares };
   }
 
   /**
-   * Fetches comprehensive Traffic Overview and time-series metrics.
+   * Fetches comprehensive Traffic Overview and time-series metrics - strictly excludes Admin data.
    */
   async getTrafficOverview(startDate: Date, endDate: Date) {
     await connectDB();
+    const adminIds = await this.getAdminUserIds();
 
-    const matchQuery = { createdAt: { $gte: startDate, $lte: endDate } };
+    const matchQuery = {
+      createdAt: { $gte: startDate, $lte: endDate },
+      isAdmin: { $ne: true },
+      userId: { $nin: adminIds },
+    };
 
     const [totalVisits, pageViews, uniqueVisitorsAgg, sessionsCount, newVisitorsCount, completedOrdersAgg] = await Promise.all([
       TrafficSession.countDocuments(matchQuery),
@@ -144,7 +182,13 @@ export class AnalyticsService {
       TrafficSession.countDocuments(matchQuery),
       TrafficSession.countDocuments({ isNewVisitor: true, ...matchQuery }),
       Order.aggregate([
-        { $match: { orderStatus: "COMPLETED", ...matchQuery } },
+        {
+          $match: {
+            orderStatus: "COMPLETED",
+            userId: { $nin: adminIds },
+            createdAt: { $gte: startDate, $lte: endDate },
+          },
+        },
         {
           $group: {
             _id: null,
@@ -225,12 +269,17 @@ export class AnalyticsService {
   }
 
   /**
-   * Fetches breakdown of traffic sources with orders and conversion rate.
+   * Fetches breakdown of traffic sources with orders and conversion rate - strictly excludes Admin data.
    */
   async getTrafficSources(startDate: Date, endDate: Date) {
     await connectDB();
+    const adminIds = await this.getAdminUserIds();
 
-    const matchQuery = { createdAt: { $gte: startDate, $lte: endDate } };
+    const matchQuery = {
+      createdAt: { $gte: startDate, $lte: endDate },
+      isAdmin: { $ne: true },
+      userId: { $nin: adminIds },
+    };
 
     // 1. Group TrafficSession by Source & Category
     const sourcesAgg = await TrafficSession.aggregate([
@@ -255,11 +304,12 @@ export class AnalyticsService {
       { $sort: { visits: -1 } },
     ]);
 
-    // 2. Count completed orders attributed to each source
+    // 2. Count completed orders attributed to each source (exclude Admin orders)
     const ordersAttributionAgg = await Order.aggregate([
       {
         $match: {
           orderStatus: "COMPLETED",
+          userId: { $nin: adminIds },
           createdAt: { $gte: startDate, $lte: endDate },
           "analyticsAttribution.lastTouchSource": { $exists: true, $ne: null },
         },
@@ -351,12 +401,17 @@ export class AnalyticsService {
   }
 
   /**
-   * Fetches device distribution (Desktop, Mobile, Tablet).
+   * Fetches device distribution (Desktop, Mobile, Tablet) - strictly excludes Admin data.
    */
   async getDeviceStats(startDate: Date, endDate: Date) {
     await connectDB();
+    const adminIds = await this.getAdminUserIds();
 
-    const matchQuery = { createdAt: { $gte: startDate, $lte: endDate } };
+    const matchQuery = {
+      createdAt: { $gte: startDate, $lte: endDate },
+      isAdmin: { $ne: true },
+      userId: { $nin: adminIds },
+    };
 
     const deviceAgg = await TrafficSession.aggregate([
       { $match: matchQuery },
@@ -406,24 +461,48 @@ export class AnalyticsService {
 
   /**
    * Realtime active monitor: shoppers, active visitors now, platform breakdown, live visitors, and top pages.
+   * Strictly excludes Admin sessions and /admin/* pages.
    */
   async getRealtimeMonitor() {
     await connectDB();
+    const adminIds = await this.getAdminUserIds();
 
     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
     const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000);
 
+    const baseFilter = {
+      isAdmin: { $ne: true },
+      userId: { $nin: adminIds },
+    };
+
     const [activeShoppers, activeSessions, topPagesAgg, platformAgg, recentSessions] = await Promise.all([
-      TrafficSession.countDocuments({ lastShoppingActivityAt: { $gte: fiveMinutesAgo } }),
-      TrafficSession.countDocuments({ lastSeenAt: { $gte: fiveMinutesAgo } }),
+      TrafficSession.countDocuments({
+        ...baseFilter,
+        lastShoppingActivityAt: { $gte: fiveMinutesAgo },
+      }),
+      TrafficSession.countDocuments({
+        ...baseFilter,
+        lastSeenAt: { $gte: fiveMinutesAgo },
+      }),
       TrafficSession.aggregate([
-        { $match: { lastSeenAt: { $gte: fifteenMinutesAgo } } },
+        {
+          $match: {
+            ...baseFilter,
+            lastSeenAt: { $gte: fifteenMinutesAgo },
+            currentPage: { $not: /^\/admin/ },
+          },
+        },
         { $group: { _id: "$currentPage", count: { $sum: 1 } } },
         { $sort: { count: -1 } },
         { $limit: 8 },
       ]),
       TrafficSession.aggregate([
-        { $match: { lastSeenAt: { $gte: fifteenMinutesAgo } } },
+        {
+          $match: {
+            ...baseFilter,
+            lastSeenAt: { $gte: fifteenMinutesAgo },
+          },
+        },
         {
           $group: {
             _id: "$source",
@@ -432,7 +511,10 @@ export class AnalyticsService {
         },
         { $sort: { count: -1 } },
       ]),
-      TrafficSession.find({ lastSeenAt: { $gte: fifteenMinutesAgo } })
+      TrafficSession.find({
+        ...baseFilter,
+        lastSeenAt: { $gte: fifteenMinutesAgo },
+      })
         .sort({ lastSeenAt: -1 })
         .limit(20)
         .lean(),
@@ -518,19 +600,30 @@ export class AnalyticsService {
   }
 
   /**
-   * Product conversion & analytics details.
+   * Product conversion & analytics details - excludes Admin actions and orders.
    */
   async getProductAnalytics(productId: string) {
     await connectDB();
+    const adminIds = await this.getAdminUserIds();
 
     const targetId = Types.ObjectId.isValid(productId) ? new Types.ObjectId(productId) : productId;
+    const baseFilter = {
+      isAdmin: { $ne: true },
+      userId: { $nin: adminIds },
+    };
 
     const [product, views, cartAdds, ordersAgg] = await Promise.all([
       Product.findById(productId).lean(),
-      AnalyticsEvent.countDocuments({ eventType: "product_view", productId }),
-      AnalyticsEvent.countDocuments({ eventType: "add_to_cart", productId }),
+      AnalyticsEvent.countDocuments({ eventType: "product_view", productId, ...baseFilter }),
+      AnalyticsEvent.countDocuments({ eventType: "add_to_cart", productId, ...baseFilter }),
       Order.aggregate([
-        { $match: { orderStatus: "COMPLETED", "items.productId": targetId } },
+        {
+          $match: {
+            orderStatus: "COMPLETED",
+            userId: { $nin: adminIds },
+            "items.productId": targetId,
+          },
+        },
         { $unwind: "$items" },
         { $match: { "items.productId": targetId } },
         {

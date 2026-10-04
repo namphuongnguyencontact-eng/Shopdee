@@ -23,15 +23,17 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const userSession = getSessionFromRequest(req);
     const userId = userSession?.userId;
+    const isAdmin = userSession?.role === "admin";
 
     const isShoppingRoute =
-      path.startsWith("/products") ||
-      path.startsWith("/product/") ||
-      path.startsWith("/cart") ||
-      path.startsWith("/checkout") ||
-      path.startsWith("/category") ||
-      path.startsWith("/categories") ||
-      path.includes("search");
+      !path.startsWith("/admin") &&
+      (path.startsWith("/products") ||
+        path.startsWith("/product/") ||
+        path.startsWith("/cart") ||
+        path.startsWith("/checkout") ||
+        path.startsWith("/category") ||
+        path.startsWith("/categories") ||
+        path.includes("search"));
 
     const now = new Date();
 
@@ -51,6 +53,7 @@ export async function POST(req: NextRequest) {
         sessionId,
         visitorId,
         userId,
+        isAdmin,
         firstSeenAt: now,
         lastSeenAt: now,
         lastShoppingActivityAt: isShoppingRoute ? now : undefined,
@@ -73,10 +76,13 @@ export async function POST(req: NextRequest) {
     } else {
       existingSession.lastSeenAt = now;
       existingSession.currentPage = path;
+      if (isAdmin) {
+        existingSession.isAdmin = true;
+      }
       if (userId && !existingSession.userId) {
         existingSession.userId = userId as any;
       }
-      if (isShoppingRoute) {
+      if (isShoppingRoute && !isAdmin) {
         existingSession.lastShoppingActivityAt = now;
       }
       await existingSession.save();

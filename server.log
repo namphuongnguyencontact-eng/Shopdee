@@ -78,3 +78,12 @@ USER FOUND IN DB: admin@shopdee.local ROLE: admin
 
  ✓ Starting...
  ✓ Ready in 3.8s
+SSE interval push error: TypeError: Invalid state: Controller is already closed
+    at Timeout.<anonymous> (c:\Users\Administrator\Shopdee\.next\server\app\api\live-metrics\stream\route.js:3:180) {
+  code: 'ERR_INVALID_STATE'
+}
+SSE interval push error: TypeError: Invalid state: Controller is already closed
+    at Timeout.<anonymous> (c:\Users\Administrator\Shopdee\.next\server\app\api\live-metrics\stream\route.js:3:180) {
+  code: 'ERR_INVALID_STATE'
+}
+^C

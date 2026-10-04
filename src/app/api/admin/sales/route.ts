@@ -4,6 +4,7 @@ import { getSessionFromRequest } from "@/lib/auth";
 import Order from "@/models/Order";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
+import User from "@/models/User";
 import { Types } from "mongoose";
 
 export const dynamic = "force-dynamic";
@@ -16,6 +17,10 @@ export async function GET(req: NextRequest) {
     }
 
     await connectDB();
+
+    // Lấy danh sách admin để loại bỏ đơn hàng của admin khỏi mục Sản phẩm đã bán
+    const adminUsers = await User.find({ role: "admin" }).select("_id").lean();
+    const adminUserIds = adminUsers.map((u) => u._id);
 
     const searchParams = req.nextUrl.searchParams;
     const days = searchParams.get("days") ? Number(searchParams.get("days")) : 0;
@@ -30,8 +35,9 @@ export async function GET(req: NextRequest) {
       matchQuery.createdAt = { $gte: startDate };
     }
 
-    // Exclude cancelled orders from sold calculation
+    // Exclude cancelled orders and exclude admin orders
     matchQuery.orderStatus = { $ne: "CANCELLED" };
+    matchQuery.userId = { $nin: adminUserIds };
 
     const orders = await Order.find(matchQuery).sort({ createdAt: -1 }).lean();
 

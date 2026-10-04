@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import User from "@/models/User";
 import Product from "@/models/Product";
@@ -17,6 +17,10 @@ export async function GET(req: NextRequest) {
 
     await connectDB();
 
+    // Lấy danh sách các tài khoản Admin để loại bỏ 100% dữ liệu của Admin khỏi Admin Dashboard
+    const adminUsers = await User.find({ role: "admin" }).select("_id").lean();
+    const adminUserIds = adminUsers.map((u) => u._id);
+
     const [
       totalUsers,
       totalProducts,
@@ -28,19 +32,27 @@ export async function GET(req: NextRequest) {
       topViewedProducts,
       categories,
     ] = await Promise.all([
-      User.countDocuments(),
+      // Chỉ đếm khách hàng thông thường, không tính tài khoản Admin
+      User.countDocuments({ role: { $ne: "admin" } }),
       Product.countDocuments({ status: "active" }),
-      Order.countDocuments(),
+      // Chỉ đếm đơn hàng từ khách hàng, loại trừ đơn của Admin
+      Order.countDocuments({ userId: { $nin: adminUserIds } }),
       SharedOrder.countDocuments(),
-      Order.find().sort({ createdAt: -1 }).limit(10).lean(),
+      Order.find({ userId: { $nin: adminUserIds } }).sort({ createdAt: -1 }).limit(10).lean(),
       analyticsService.getFunnelStats(),
       Product.find({ status: "active" }).sort({ soldCount: -1 }).limit(5).select("name price soldCount images categoryName").lean(),
       Product.find({ status: "active" }).sort({ viewCount: -1 }).limit(5).select("name price viewCount images categoryName").lean(),
       Category.find({ isActive: true }).select("name slug productCount").lean(),
     ]);
 
-    // Calculate Virtual GMV
+    // Calculate Virtual GMV (chỉ tính đơn từ khách hàng thực tế)
     const gmvAgg = await Order.aggregate([
+      {
+        $match: {
+          userId: { $nin: adminUserIds },
+          orderStatus: { $ne: "CANCELLED" },
+        },
+      },
       { $group: { _id: null, totalGMV: { $sum: "$total" } } },
     ]);
     const virtualGMV = gmvAgg[0]?.totalGMV || 0;

@@ -41,6 +41,7 @@ export default function TrafficTracker() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (pathname?.startsWith("/admin")) return; // Do not track admin back-office pages as customer traffic
 
     const visitorId = getVisitorId();
     const sessionId = getSessionId();
@@ -97,6 +98,7 @@ export default function TrafficTracker() {
   // 3. Periodic Heartbeat every 30 seconds for Active Shopper tracking
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (pathname?.startsWith("/admin")) return; // Do not track admin back-office pages
 
     const interval = setInterval(() => {
       const visitorId = getVisitorId();

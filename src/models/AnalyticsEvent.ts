@@ -26,6 +26,7 @@ export type AnalyticsEventType =
 export interface IAnalyticsEvent extends Document {
   _id: mongoose.Types.ObjectId;
   userId?: mongoose.Types.ObjectId;
+  isAdmin?: boolean;
   sessionId?: string;
   visitorId?: string;
   eventType: AnalyticsEventType;
@@ -45,6 +46,7 @@ export interface IAnalyticsEvent extends Document {
 const AnalyticsEventSchema = new Schema<IAnalyticsEvent>(
   {
     userId: { type: Schema.Types.ObjectId, ref: "User", index: true },
+    isAdmin: { type: Boolean, default: false, index: true },
     sessionId: { type: String, index: true },
     visitorId: { type: String, index: true },
     eventType: { type: String, required: true, index: true },

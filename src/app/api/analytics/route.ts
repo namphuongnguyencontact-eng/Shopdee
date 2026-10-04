@@ -25,8 +25,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: { message: "Thiếu eventType." } }, { status: 400 });
     }
 
+    const isAdmin = session?.role === "admin";
+
     await analyticsService.logEvent({
       userId: session?.userId,
+      isAdmin,
       sessionId,
       visitorId,
       eventType,

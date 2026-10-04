@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Order from "@/models/Order";
 import Notification from "@/models/Notification";
+import User from "@/models/User";
 import { getSessionFromRequest } from "@/lib/auth";
 import { autoAdvanceDeliveredOrders } from "@/lib/orderService";
 import { productSalesService } from "@/services/productSales";
@@ -17,6 +18,10 @@ export async function GET(req: NextRequest) {
     // Auto-advance orders past 24h
     await autoAdvanceDeliveredOrders();
 
+    // Lấy danh sách tài khoản admin để loại trừ đơn hàng của admin khỏi Admin Dashboard
+    const adminUsers = await User.find({ role: "admin" }).select("_id").lean();
+    const adminUserIds = adminUsers.map((u) => u._id);
+
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search")?.trim() || "";
     const status = searchParams.get("status") || "";
@@ -24,7 +29,9 @@ export async function GET(req: NextRequest) {
     const limit = Math.min(50, Math.max(1, parseInt(searchParams.get("limit") || "20", 10)));
     const skip = (page - 1) * limit;
 
-    const query: Record<string, unknown> = {};
+    const query: Record<string, unknown> = {
+      userId: { $nin: adminUserIds },
+    };
     if (search) {
       const regex = new RegExp(search, "i");
       query.$or = [

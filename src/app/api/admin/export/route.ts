@@ -21,6 +21,10 @@ export async function GET(req: NextRequest) {
 
     await connectDB();
 
+    // Lấy danh sách tài khoản Admin để loại bỏ 100% dữ liệu của Admin khỏi tất cả báo cáo Excel
+    const adminUsers = await User.find({ role: "admin" }).select("_id").lean();
+    const adminUserIds = adminUsers.map((u) => u._id);
+
     const searchParams = req.nextUrl.searchParams;
     const type = searchParams.get("type") || "orders";
     const productId = searchParams.get("productId") || "";
@@ -41,7 +45,10 @@ export async function GET(req: NextRequest) {
       sheetName = "San_Pham_Da_Ban";
       fileName = `shopdee_san_pham_da_ban_${new Date().toISOString().slice(0, 10)}.xlsx`;
 
-      const orders = await Order.find({ orderStatus: { $ne: "CANCELLED" } }).lean();
+      const orders = await Order.find({
+        orderStatus: { $ne: "CANCELLED" },
+        userId: { $nin: adminUserIds },
+      }).lean();
       const productSalesMap = new Map<string, any>();
 
       for (const order of orders) {
@@ -121,6 +128,7 @@ export async function GET(req: NextRequest) {
       const orders = await Order.find({
         $or: [{ "items.productId": productId }, { "items.slug": prod?.slug }],
         orderStatus: { $ne: "CANCELLED" },
+        userId: { $nin: adminUserIds },
       })
         .sort({ createdAt: -1 })
         .lean();
@@ -151,7 +159,7 @@ export async function GET(req: NextRequest) {
       sheetName = "Danh_Sach_Don_Hang";
       fileName = `shopdee_don_hang_${new Date().toISOString().slice(0, 10)}.xlsx`;
 
-      const orders = await Order.find({}).sort({ createdAt: -1 }).lean();
+      const orders = await Order.find({ userId: { $nin: adminUserIds } }).sort({ createdAt: -1 }).lean();
 
       dataRows = orders.map((o, idx) => {
         const itemsSummary = (o.items || []).map((it: any) => `${it.name} (x${it.quantity})`).join("; ");
@@ -217,7 +225,7 @@ export async function GET(req: NextRequest) {
       sheetName = "Danh_Sach_Nguoi_Dung";
       fileName = `shopdee_nguoi_dung_${new Date().toISOString().slice(0, 10)}.xlsx`;
 
-      const users = await User.find({}).sort({ createdAt: -1 }).lean();
+      const users = await User.find({ role: { $ne: "admin" } }).sort({ createdAt: -1 }).lean();
 
       dataRows = users.map((u, idx) => ({
         "STT": idx + 1,

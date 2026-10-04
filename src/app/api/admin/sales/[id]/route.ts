@@ -33,21 +33,26 @@ export async function GET(
       return NextResponse.json({ success: false, error: { message: "Không tìm thấy sản phẩm." } }, { status: 404 });
     }
 
-    // 2. Fetch all orders containing this product
+    // Lấy danh sách admin để loại trừ khỏi báo cáo người mua và phân tích nhân khẩu học
+    const adminUsers = await User.find({ role: "admin" }).select("_id").lean();
+    const adminUserIds = adminUsers.map((u) => u._id);
+
+    // 2. Fetch all orders containing this product (loại trừ đơn hàng của admin)
     const orders = await Order.find({
       $or: [
         { "items.productId": targetId },
         { "items.productId": productId },
         { "items.slug": product.slug },
       ],
+      userId: { $nin: adminUserIds },
       orderStatus: { $ne: "CANCELLED" },
     })
       .sort({ createdAt: -1 })
       .lean();
 
-    // 3. Extract Buyers List
+    // 3. Extract Buyers List (chỉ khách hàng thông thường)
     const userIds = orders.map((o) => o.userId).filter(Boolean);
-    const users = await User.find({ _id: { $in: userIds } }).lean();
+    const users = await User.find({ _id: { $in: userIds }, role: { $ne: "admin" } }).lean();
     const usersMap = new Map(users.map((u) => [String(u._id), u]));
 
     const buyers: Array<{
