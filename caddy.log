@@ -1,0 +1,66 @@
+{"level":"info","ts":1791136633.5528593,"msg":"maxprocs: Leaving GOMAXPROCS=2: CPU quota undefined"}
+{"level":"info","ts":1791136633.605692,"msg":"GOMEMLIMIT is updated","GOMEMLIMIT":3864969216,"previous":9223372036854775807}
+{"level":"info","ts":1791136633.605692,"msg":"using config from file","file":"c:\\Users\\Administrator\\Shopdee\\Caddyfile"}
+{"level":"info","ts":1791136633.605692,"msg":"adapted config to JSON","adapter":"caddyfile"}
+{"level":"warn","ts":1791136633.605692,"msg":"Caddyfile input is not formatted; run 'caddy fmt --overwrite' to fix inconsistencies","adapter":"caddyfile","file":"c:\\Users\\Administrator\\Shopdee\\Caddyfile","line":2}
+{"level":"info","ts":1791136633.6736715,"logger":"admin","msg":"admin endpoint started","address":"localhost:2019","enforce_origin":false,"origins":["//localhost:2019","//[::1]:2019","//127.0.0.1:2019"]}
+{"level":"info","ts":1791136633.7022884,"logger":"http.auto_https","msg":"server is listening only on the HTTPS port but has no TLS connection policies; adding one to enable TLS","server_name":"srv0","https_port":443}
+{"level":"info","ts":1791136633.7022884,"logger":"http.auto_https","msg":"enabling automatic HTTP->HTTPS redirects","server_name":"srv0"}
+{"level":"info","ts":1791136633.7122946,"logger":"tls.cache.maintenance","msg":"started background certificate maintenance","cache":"0x1fe71923b600"}
+{"level":"info","ts":1791136633.715547,"logger":"http","msg":"enabling HTTP/3 listener","addr":":443"}
+{"level":"info","ts":1791136633.7902064,"logger":"http.log","msg":"server running","name":"srv0","protocols":["h1","h2","h3"]}
+{"level":"warn","ts":1791136633.7902064,"logger":"http","msg":"HTTP/2 skipped because it requires TLS","network":"tcp","addr":":80"}
+{"level":"warn","ts":1791136633.7902064,"logger":"http","msg":"HTTP/3 skipped because it requires TLS","network":"tcp","addr":":80"}
+{"level":"info","ts":1791136633.7902064,"logger":"http.log","msg":"server running","name":"remaining_auto_https_redirects","protocols":["h1","h2","h3"]}
+{"level":"info","ts":1791136633.7902064,"logger":"http","msg":"enabling automatic TLS certificate management","domains":["shopdeevn.online","www.shopdeevn.online"]}
+{"level":"info","ts":1791136633.9327788,"msg":"autosaved config (load with --resume flag)","file":"C:\\Windows\\system32\\config\\systemprofile\\AppData\\Roaming\\Caddy\\autosave.json"}
+{"level":"info","ts":1791136633.9327788,"msg":"serving initial configuration"}
+{"level":"info","ts":1791136635.567908,"logger":"tls.obtain","msg":"acquiring lock","identifier":"www.shopdeevn.online"}
+{"level":"info","ts":1791136635.63595,"logger":"tls","msg":"cleaning storage unit","storage":"FileStorage:C:\\Windows\\system32\\config\\systemprofile\\AppData\\Roaming\\Caddy"}
+{"level":"info","ts":1791136635.649443,"logger":"tls.obtain","msg":"lock acquired","identifier":"www.shopdeevn.online"}
+{"level":"info","ts":1791136635.649443,"logger":"tls.obtain","msg":"obtaining certificate","identifier":"www.shopdeevn.online"}
+{"level":"info","ts":1791136635.6877897,"logger":"http","msg":"creating new account because no account for configured email is known to us","email":"","ca":"https://acme-v02.api.letsencrypt.org/directory","error":"open C:\\Windows\\system32\\config\\systemprofile\\AppData\\Roaming\\Caddy\\acme\\acme-v02.api.letsencrypt.org-directory\\users\\default\\default.json: The system cannot find the path specified."}
+{"level":"info","ts":1791136635.6877897,"logger":"http","msg":"ACME account has empty status; registering account with ACME server","contact":[],"location":""}
+{"level":"info","ts":1791136635.719384,"logger":"http","msg":"creating new account because no account for configured email is known to us","email":"","ca":"https://acme-v02.api.letsencrypt.org/directory","error":"open C:\\Windows\\system32\\config\\systemprofile\\AppData\\Roaming\\Caddy\\acme\\acme-v02.api.letsencrypt.org-directory\\users\\default\\default.json: The system cannot find the path specified."}
+{"level":"info","ts":1791136635.9433222,"logger":"tls","msg":"finished cleaning storage units"}
+{"level":"info","ts":1791136635.9483771,"logger":"tls.obtain","msg":"acquiring lock","identifier":"shopdeevn.online"}
+{"level":"info","ts":1791136636.1786053,"logger":"tls.obtain","msg":"lock acquired","identifier":"shopdeevn.online"}
+{"level":"info","ts":1791136636.1786053,"logger":"tls.obtain","msg":"obtaining certificate","identifier":"shopdeevn.online"}
+{"level":"info","ts":1791136636.1786053,"logger":"http","msg":"creating new account because no account for configured email is known to us","email":"","ca":"https://acme-v02.api.letsencrypt.org/directory","error":"open C:\\Windows\\system32\\config\\systemprofile\\AppData\\Roaming\\Caddy\\acme\\acme-v02.api.letsencrypt.org-directory\\users\\default\\default.json: The system cannot find the path specified."}
+{"level":"info","ts":1791136636.1786053,"logger":"http","msg":"ACME account has empty status; registering account with ACME server","contact":[],"location":""}
+{"level":"info","ts":1791136637.5283577,"logger":"http","msg":"new ACME account registered","contact":[],"status":"valid"}
+{"level":"info","ts":1791136637.5822003,"logger":"http","msg":"waiting on internal rate limiter","identifiers":["www.shopdeevn.online"],"ca":"https://acme-v02.api.letsencrypt.org/directory","account":""}
+{"level":"info","ts":1791136637.5822003,"logger":"http","msg":"done waiting on internal rate limiter","identifiers":["www.shopdeevn.online"],"ca":"https://acme-v02.api.letsencrypt.org/directory","account":""}
+{"level":"info","ts":1791136637.6177716,"logger":"http","msg":"using ACME account","account_id":"https://acme-v02.api.letsencrypt.org/acme/acct/3825351356","account_contact":[]}
+{"level":"info","ts":1791136638.1942117,"logger":"http.acme_client","msg":"trying to solve challenge","identifier":"www.shopdeevn.online","challenge_type":"http-01","ca":"https://acme-v02.api.letsencrypt.org/directory"}
+{"level":"info","ts":1791136638.2155712,"logger":"http","msg":"account has already been registered; reloaded","contact":[],"status":"valid","location":"https://acme-v02.api.letsencrypt.org/acme/acct/3825351356"}
+{"level":"info","ts":1791136638.2155712,"logger":"http","msg":"waiting on internal rate limiter","identifiers":["shopdeevn.online"],"ca":"https://acme-v02.api.letsencrypt.org/directory","account":""}
+{"level":"info","ts":1791136638.2166853,"logger":"http","msg":"done waiting on internal rate limiter","identifiers":["shopdeevn.online"],"ca":"https://acme-v02.api.letsencrypt.org/directory","account":""}
+{"level":"info","ts":1791136638.2166853,"logger":"http","msg":"using ACME account","account_id":"https://acme-v02.api.letsencrypt.org/acme/acct/3825351356","account_contact":[]}
+{"level":"info","ts":1791136640.1996832,"logger":"http.acme_client","msg":"trying to solve challenge","identifier":"shopdeevn.online","challenge_type":"http-01","ca":"https://acme-v02.api.letsencrypt.org/directory"}
+{"level":"info","ts":1791136641.6775572,"logger":"http","msg":"served key authentication","identifier":"www.shopdeevn.online","challenge":"http-01","remote":"23.178.112.106:40115","distributed":false}
+{"level":"info","ts":1791136642.1711013,"logger":"http","msg":"served key authentication","identifier":"www.shopdeevn.online","challenge":"http-01","remote":"56.10.124.96:14388","distributed":false}
+{"level":"info","ts":1791136642.5621867,"logger":"http","msg":"served key authentication","identifier":"www.shopdeevn.online","challenge":"http-01","remote":"18.246.237.215:42940","distributed":false}
+{"level":"info","ts":1791136643.7934134,"logger":"http","msg":"served key authentication","identifier":"www.shopdeevn.online","challenge":"http-01","remote":"13.53.214.197:25908","distributed":false}
+{"level":"info","ts":1791136643.8007035,"logger":"http","msg":"served key authentication","identifier":"www.shopdeevn.online","challenge":"http-01","remote":"3.135.184.196:14556","distributed":false}
+{"level":"info","ts":1791136643.848519,"logger":"http","msg":"served key authentication","identifier":"shopdeevn.online","challenge":"http-01","remote":"23.178.112.105:45881","distributed":false}
+{"level":"info","ts":1791136644.6029887,"logger":"http","msg":"served key authentication","identifier":"shopdeevn.online","challenge":"http-01","remote":"18.142.51.81:11108","distributed":false}
+{"level":"info","ts":1791136644.9046082,"logger":"http","msg":"served key authentication","identifier":"shopdeevn.online","challenge":"http-01","remote":"13.53.214.197:25910","distributed":false}
+{"level":"info","ts":1791136644.939932,"logger":"http","msg":"served key authentication","identifier":"shopdeevn.online","challenge":"http-01","remote":"18.188.168.186:21792","distributed":false}
+{"level":"info","ts":1791136646.4853706,"logger":"http","msg":"served key authentication","identifier":"shopdeevn.online","challenge":"http-01","remote":"184.32.232.192:64274","distributed":false}
+{"level":"info","ts":1791136648.1206925,"logger":"http.acme_client","msg":"authorization finalized","identifier":"www.shopdeevn.online","authz_status":"valid"}
+{"level":"info","ts":1791136648.121179,"logger":"http.acme_client","msg":"validations succeeded; finalizing order","order":"https://acme-v02.api.letsencrypt.org/acme/order/3825351356/565318976156"}
+{"level":"info","ts":1791136649.2303798,"logger":"http.acme_client","msg":"got renewal info","names":["www.shopdeevn.online"],"window_start":1796240582,"window_end":1796396031,"selected_time":1796247941,"recheck_after":1791161385.2303798,"explanation_url":""}
+{"level":"info","ts":1791136649.8016346,"logger":"http.acme_client","msg":"got renewal info","names":["www.shopdeevn.online"],"window_start":1796240582,"window_end":1796396031,"selected_time":1796298704,"recheck_after":1791162207.8016346,"explanation_url":""}
+{"level":"info","ts":1791136650.3756225,"logger":"http.acme_client","msg":"got renewal info","names":["www.shopdeevn.online"],"window_start":1796240582,"window_end":1796396031,"selected_time":1796341871,"recheck_after":1791157501.3756225,"explanation_url":""}
+{"level":"info","ts":1791136650.3756225,"logger":"http.acme_client","msg":"successfully downloaded available certificate chains","count":3,"first_url":"https://acme-v02.api.letsencrypt.org/acme/cert/05d7cc81ccdb9df429549aab7fe7096a7924"}
+{"level":"info","ts":1791136650.555219,"logger":"tls.obtain","msg":"certificate obtained successfully","identifier":"www.shopdeevn.online","issuer":"acme-v02.api.letsencrypt.org-directory"}
+{"level":"info","ts":1791136650.5625064,"logger":"tls.obtain","msg":"releasing lock","identifier":"www.shopdeevn.online"}
+{"level":"info","ts":1791136651.2726989,"logger":"http.acme_client","msg":"authorization finalized","identifier":"shopdeevn.online","authz_status":"valid"}
+{"level":"info","ts":1791136651.2726989,"logger":"http.acme_client","msg":"validations succeeded; finalizing order","order":"https://acme-v02.api.letsencrypt.org/acme/order/3825351356/565318980646"}
+{"level":"info","ts":1791136652.7348478,"logger":"http.acme_client","msg":"got renewal info","names":["shopdeevn.online"],"window_start":1796240585,"window_end":1796396034,"selected_time":1796256122,"recheck_after":1791157417.7348478,"explanation_url":""}
+{"level":"info","ts":1791136653.3005228,"logger":"http.acme_client","msg":"got renewal info","names":["shopdeevn.online"],"window_start":1796240585,"window_end":1796396034,"selected_time":1796311508,"recheck_after":1791159748.3005228,"explanation_url":""}
+{"level":"info","ts":1791136653.8748264,"logger":"http.acme_client","msg":"got renewal info","names":["shopdeevn.online"],"window_start":1796240585,"window_end":1796396034,"selected_time":1796351678,"recheck_after":1791157740.8748264,"explanation_url":""}
+{"level":"info","ts":1791136653.875455,"logger":"http.acme_client","msg":"successfully downloaded available certificate chains","count":3,"first_url":"https://acme-v02.api.letsencrypt.org/acme/cert/057b4abc20a162bb617a94b57a185d1e6de9"}
+{"level":"info","ts":1791136654.000476,"logger":"tls.obtain","msg":"certificate obtained successfully","identifier":"shopdeevn.online","issuer":"acme-v02.api.letsencrypt.org-directory"}
+{"level":"info","ts":1791136654.000476,"logger":"tls.obtain","msg":"releasing lock","identifier":"shopdeevn.online"}
