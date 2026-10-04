@@ -70,3 +70,5 @@ USER FOUND IN DB: admin@shopdee.local ROLE: admin
 
  ✓ Starting...
  ✓ Ready in 20.4s
+LOGIN ATTEMPT: admin@shopdee.local
+USER FOUND IN DB: admin@shopdee.local ROLE: admin
