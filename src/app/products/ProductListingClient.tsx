@@ -400,39 +400,59 @@ export default function ProductListingClient({
           )}
 
           {/* Bottom Pagination */}
-          {pagination.totalPages > 1 && (
-            <div className="flex items-center justify-center gap-2 pt-8 pb-4">
-              <button
-                disabled={pagination.page <= 1}
-                onClick={() => updateFilters({ page: (pagination.page - 1).toString() })}
-                className="w-9 h-8 border border-slate-200 bg-white text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition cursor-pointer flex items-center justify-center rounded-xs"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
+          {pagination.totalPages > 1 && (() => {
+            const total = pagination.totalPages;
+            const current = pagination.page;
+            let start = 1;
+            let end = Math.min(5, total);
 
-              {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((num) => (
+            if (total > 5) {
+              start = Math.max(1, current - 2);
+              end = start + 4;
+              if (end > total) {
+                end = total;
+                start = Math.max(1, end - 4);
+              }
+            }
+
+            const visiblePages = Array.from({ length: end - start + 1 }, (_, i) => start + i);
+
+            return (
+              <div className="flex items-center justify-center gap-2 pt-8 pb-4">
                 <button
-                  key={num}
-                  onClick={() => updateFilters({ page: num.toString() })}
-                  className={`w-9 h-8 text-xs font-bold transition cursor-pointer rounded-xs ${
-                    pagination.page === num
-                      ? "bg-[#192841] text-white shadow-xs"
-                      : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-100"
-                  }`}
+                  disabled={pagination.page <= 1}
+                  onClick={() => updateFilters({ page: (pagination.page - 1).toString() })}
+                  className="w-9 h-8 border border-slate-200 bg-white text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition cursor-pointer flex items-center justify-center rounded-xs"
+                  title="Trang trước"
                 >
-                  {num}
+                  <ChevronLeft className="w-4 h-4" />
                 </button>
-              ))}
 
-              <button
-                disabled={pagination.page >= pagination.totalPages}
-                onClick={() => updateFilters({ page: (pagination.page + 1).toString() })}
-                className="w-9 h-8 border border-slate-200 bg-white text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition cursor-pointer flex items-center justify-center rounded-xs"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          )}
+                {visiblePages.map((num) => (
+                  <button
+                    key={num}
+                    onClick={() => updateFilters({ page: num.toString() })}
+                    className={`w-9 h-8 text-xs font-bold transition cursor-pointer rounded-xs ${
+                      pagination.page === num
+                        ? "bg-[#192841] text-white shadow-xs"
+                        : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-100"
+                    }`}
+                  >
+                    {num}
+                  </button>
+                ))}
+
+                <button
+                  disabled={pagination.page >= pagination.totalPages}
+                  onClick={() => updateFilters({ page: (pagination.page + 1).toString() })}
+                  className="w-9 h-8 border border-slate-200 bg-white text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition cursor-pointer flex items-center justify-center rounded-xs"
+                  title="Trang sau"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            );
+          })()}
         </div>
       </div>
 

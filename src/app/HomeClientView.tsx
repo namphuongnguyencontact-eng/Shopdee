@@ -430,7 +430,12 @@ export default function HomeClientView({
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-3">
               {flashSaleProducts.slice(0, 12).map((product) => {
                 const activePrice = product.flashSalePrice || product.price;
-                const soldPercentage = Math.min(95, Math.max(15, (product.soldCount % 100) || 35));
+                const soldCount = typeof product.soldCount === "number" ? Math.max(0, product.soldCount) : 0;
+                // Tính % tiến độ dựa trên số lượng bán thật
+                const soldPercentage =
+                  soldCount > 0
+                    ? Math.min(100, Math.max(12, Math.round((soldCount / Math.max(soldCount + 5, 20)) * 100)))
+                    : 0;
 
                 return (
                   <div
@@ -457,15 +462,27 @@ export default function HomeClientView({
                         ₫{activePrice.toLocaleString("vi-VN")}
                       </div>
 
-                      {/* Shopee Fire Sale Progress Bar */}
-                      <div className="mt-2 relative w-full h-4 bg-red-100 rounded-full overflow-hidden flex items-center justify-center">
-                        <div
-                          className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-red-500 to-amber-500 rounded-full"
-                          style={{ width: `${soldPercentage}%` }}
-                        />
-                        <span className="relative z-10 text-[9px] font-black text-white uppercase flex items-center gap-0.5 drop-shadow-xs">
-                          🔥 ĐÃ BÁN {product.soldCount || 18}
-                        </span>
+                      {/* Shopee Fire Sale Progress Bar with Real Data */}
+                      <div
+                        className={`mt-2 relative w-full h-4 rounded-full overflow-hidden flex items-center justify-center ${
+                          soldCount > 0 ? "bg-red-100" : "bg-slate-100 border border-slate-200"
+                        }`}
+                      >
+                        {soldCount > 0 ? (
+                          <>
+                            <div
+                              className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-red-500 to-amber-500 rounded-full transition-all duration-500"
+                              style={{ width: `${soldPercentage}%` }}
+                            />
+                            <span className="relative z-10 text-[9px] font-black text-white uppercase flex items-center gap-0.5 drop-shadow-xs">
+                              🔥 ĐÃ BÁN {soldCount}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="relative z-10 text-[9px] font-bold text-slate-500 uppercase flex items-center gap-0.5">
+                            ĐÃ BÁN 0
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>

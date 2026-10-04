@@ -37,6 +37,8 @@ export default function Navbar() {
   const [suggestions, setSuggestions] = useState<{
     products: Array<{ slug: string; name: string; price: number; image?: string; images?: string[] }>;
     popularSearches: string[];
+    keywordSuggestions?: string[];
+    categories?: Array<{ name: string; slug: string }>;
   } | null>(null);
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
@@ -409,68 +411,121 @@ export default function Navbar() {
               </button>
             </form>
 
-            {/* Popular Search Tags below Search Bar (Classic Shopee Style) */}
+            {/* Popular Search Tags below Search Bar (Classic Shopee Style - Real Data) */}
             <div className="hidden sm:flex items-center gap-3 mt-1.5 text-[11px] text-slate-300 overflow-hidden whitespace-nowrap">
-              {(popularSearches.length > 0
-                ? popularSearches.slice(0, 7)
-                : ["Áo thun", "Bàn phím cơ", "Son môi", "Mô hình", "Tai nghe", "Sneaker"]
-              ).map((tag) => (
+              {popularSearches.slice(0, 7).map((tag) => (
                 <button
                   key={tag}
                   type="button"
                   onClick={() => handleTagClick(tag)}
-                  className="hover:text-white transition hover:underline"
+                  className="hover:text-white transition hover:underline cursor-pointer"
                 >
                   {tag}
                 </button>
               ))}
             </div>
 
-            {/* Autocomplete Dropdown */}
+            {/* Autocomplete & Realtime Search Dropdown */}
             {showSearchDropdown && (
-              <div className="absolute top-12 left-0 right-0 bg-white text-slate-800 shadow-xl border border-slate-200 rounded-sm p-3 z-50 animate-in fade-in">
-                {suggestions?.products && suggestions.products.length > 0 ? (
-                  <div>
-                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-                      Sản phẩm gợi ý
-                    </div>
-                    <div className="divide-y divide-slate-100">
-                      {suggestions.products.map((p) => (
-                        <Link
-                          key={p.slug}
-                          href={`/products/${p.slug}`}
-                          onClick={() => setShowSearchDropdown(false)}
-                          className="flex items-center justify-between py-2 px-2 hover:bg-slate-50 transition rounded"
-                        >
-                          <span className="text-xs font-medium text-slate-800 truncate pr-2">
-                            {p.name}
-                          </span>
-                          <span className="text-xs font-bold text-[#192841] shrink-0">
-                            {formatVND(p.price)}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
+              <div className="absolute top-12 left-0 right-0 bg-white text-slate-800 shadow-2xl border border-slate-200 rounded-sm p-3.5 z-50 animate-in fade-in space-y-3">
+                {searchQuery.trim() ? (
+                  /* KHI ĐANG NHẬP TỪ KHÓA: HIỂN THỊ GỢI Ý TỪ KHÓA & SẢN PHẨM THỰC */
+                  <div className="space-y-3">
+                    {/* 1. Gợi ý từ khóa thực tế */}
+                    {suggestions?.keywordSuggestions && suggestions.keywordSuggestions.length > 0 && (
+                      <div>
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                          <Search className="w-3 h-3 text-[#192841]" /> Gợi ý tìm kiếm
+                        </div>
+                        <div className="space-y-0.5">
+                          {suggestions.keywordSuggestions.map((kw, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => handleTagClick(kw)}
+                              className="w-full flex items-center gap-2 py-1.5 px-2 hover:bg-slate-50 text-left text-xs font-semibold text-slate-700 hover:text-[#192841] transition rounded-xs cursor-pointer"
+                            >
+                              <Search className="w-3 h-3 text-slate-400" />
+                              <span className="truncate">{kw}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 2. Sản phẩm thực tế khớp với từ khóa */}
+                    {suggestions?.products && suggestions.products.length > 0 ? (
+                      <div>
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                          Sản phẩm gợi ý
+                        </div>
+                        <div className="divide-y divide-slate-100">
+                          {suggestions.products.map((p) => (
+                            <Link
+                              key={p.slug}
+                              href={`/products/${p.slug}`}
+                              onClick={() => setShowSearchDropdown(false)}
+                              className="flex items-center justify-between py-2 px-2 hover:bg-slate-50 transition rounded-xs"
+                            >
+                              <span className="text-xs font-medium text-slate-800 truncate pr-2">
+                                {p.name}
+                              </span>
+                              <span className="text-xs font-bold text-[#192841] shrink-0">
+                                {formatVND(p.price)}
+                              </span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      (!suggestions?.keywordSuggestions || suggestions.keywordSuggestions.length === 0) && (
+                        <div className="py-4 text-center text-xs text-slate-400">
+                          Không tìm thấy sản phẩm nào khớp với &quot;{searchQuery}&quot;
+                        </div>
+                      )
+                    )}
+
+                    {/* 3. Danh mục thực tế khớp */}
+                    {suggestions?.categories && suggestions.categories.length > 0 && (
+                      <div className="pt-2 border-t border-slate-100">
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                          Danh mục liên quan
+                        </div>
+                        <div className="flex flex-wrap gap-1.5">
+                          {suggestions.categories.map((c) => (
+                            <Link
+                              key={c.slug}
+                              href={`/category/${c.slug}`}
+                              onClick={() => setShowSearchDropdown(false)}
+                              className="text-xs px-2.5 py-1 bg-slate-100 hover:bg-[#192841] hover:text-white text-slate-700 rounded-xs transition font-medium"
+                            >
+                              {c.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ) : (
+                  /* KHI CHƯA NHẬP: HIỂN THỊ TÌM KIẾM NHIỀU NHẤT DỰA TRÊN DỮ LIỆU THỰC */
                   <div>
-                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Tìm kiếm phổ biến
+                    <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Tìm kiếm nhiều nhất
                     </div>
                     <div className="flex flex-wrap gap-1.5">
-                      {(suggestions?.popularSearches || popularSearches).length > 0 ? (
-                        (suggestions?.popularSearches || popularSearches).map((tag) => (
+                      {popularSearches.length > 0 ? (
+                        popularSearches.map((tag) => (
                           <button
                             key={tag}
                             type="button"
                             onClick={() => handleTagClick(tag)}
-                            className="text-xs px-2.5 py-1 bg-slate-100 hover:bg-[#192841] hover:text-white text-slate-700 rounded-sm transition font-medium"
+                            className="text-xs px-2.5 py-1.5 bg-slate-100 hover:bg-[#192841] hover:text-white text-slate-700 rounded-xs transition font-medium cursor-pointer"
                           >
                             {tag}
                           </button>
                         ))
                       ) : (
-                        <span className="text-xs text-slate-400">Đang tải xu hướng tìm kiếm...</span>
+                        <span className="text-xs text-slate-400 py-2">Đang tải xu hướng tìm kiếm từ hệ thống...</span>
                       )}
                     </div>
                   </div>
