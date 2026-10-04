@@ -20,6 +20,7 @@ import {
   Loader2,
   RefreshCw,
   Image as ImageIcon,
+  FileSpreadsheet,
 } from "lucide-react";
 import Link from "next/link";
 import { useToastStore } from "@/store/useToastStore";
@@ -386,13 +387,26 @@ export default function AdminCategoriesPage() {
           </p>
         </div>
 
-        <button
-          onClick={openCreateModal}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white text-xs font-bold shadow-lg shadow-pink-600/20 transition-all cursor-pointer"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Thêm Danh Mục Mới</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-2.5">
+          <button
+            type="button"
+            onClick={() => {
+              window.location.href = "/api/admin/export?type=categories";
+            }}
+            className="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-emerald-600/20 border border-emerald-500/30 hover:bg-emerald-600/30 text-emerald-400 text-xs font-bold transition-all cursor-pointer"
+            title="Xuất bảng tính danh mục ra file Excel .xlsx"
+          >
+            <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+            <span>Xuất Excel</span>
+          </button>
+          <button
+            onClick={openCreateModal}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white text-xs font-bold shadow-lg shadow-pink-600/20 transition-all cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Thêm Danh Mục Mới</span>
+          </button>
+        </div>
       </div>
 
       {/* Filter / Search Bar */}

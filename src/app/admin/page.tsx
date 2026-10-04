@@ -57,8 +57,15 @@ interface StatsData {
   }>;
 }
 
+interface RealtimeSummary {
+  activeShoppers: number;
+  recentActiveSessions: number;
+  platformBreakdown: Array<{ platform: string; activeCount: number; percentage: number }>;
+}
+
 export default function AdminDashboardPage() {
   const [data, setData] = useState<StatsData | null>(null);
+  const [realtime, setRealtime] = useState<RealtimeSummary | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -71,6 +78,21 @@ export default function AdminDashboardPage() {
       })
       .catch((err) => console.error("Error fetching admin stats:", err))
       .finally(() => setLoading(false));
+
+    const fetchRealtime = () => {
+      fetch("/api/admin/analytics/realtime")
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.success && json.data) {
+            setRealtime(json.data);
+          }
+        })
+        .catch(() => {});
+    };
+
+    fetchRealtime();
+    const interval = setInterval(fetchRealtime, 6000);
+    return () => clearInterval(interval);
   }, []);
 
   if (loading) {
@@ -90,17 +112,24 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-8">
       {/* Top Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-neutral-900 to-neutral-850 p-6 rounded-2xl border border-white/10">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-neutral-900 via-neutral-900 to-blue-950/40 p-6 rounded-2xl border border-white/10">
         <div>
           <h1 className="text-2xl font-black text-white flex items-center gap-2">
             Bảng Điều Khiển Quản Trị
             <Sparkles className="w-5 h-5 text-yellow-400" />
           </h1>
           <p className="text-xs text-neutral-400 mt-1">
-            Tổng quan hiệu suất bán hàng, phễu chuyển đổi và hành vi người dùng Gen Z.
+            Tổng quan hiệu suất bán hàng, phễu chuyển đổi, traffic đa nền tảng và nhân khẩu học người mua.
           </p>
         </div>
-        <div className="flex items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <Link
+            href="/admin/sales"
+            className="px-4 py-2 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs transition-colors flex items-center gap-1.5 shadow-md shadow-orange-600/20"
+          >
+            <TrendingUp className="w-4 h-4" />
+            Sản Phẩm Đã Bán
+          </Link>
           <Link
             href="/admin/products"
             className="px-4 py-2 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs transition-colors flex items-center gap-1.5"
@@ -113,6 +142,50 @@ export default function AdminDashboardPage() {
             className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-neutral-200 font-bold text-xs transition-colors border border-white/10"
           >
             Duyệt Đơn Hàng
+          </Link>
+        </div>
+      </div>
+
+      {/* Realtime Traffic Highlight Strip */}
+      <div className="bg-neutral-900/90 border border-blue-500/20 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="relative flex items-center justify-center">
+            <span className="w-3 h-3 rounded-full bg-emerald-500 animate-ping absolute" />
+            <span className="w-3 h-3 rounded-full bg-emerald-500" />
+          </div>
+          <div>
+            <div className="text-xs font-bold text-white flex items-center gap-2">
+              Lưu Lượng Trực Tiếp (Real-time Live Traffic)
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono font-bold">
+                {realtime?.activeShoppers ?? 0} online
+              </span>
+            </div>
+            <div className="text-[11px] text-neutral-400 mt-0.5">
+              Định danh nguồn truy cập từ Threads, TikTok, Facebook, Google, Zalo...
+            </div>
+          </div>
+        </div>
+
+        {/* Platform Badges */}
+        <div className="flex flex-wrap items-center gap-2">
+          {realtime?.platformBreakdown && realtime.platformBreakdown.length > 0 ? (
+            realtime.platformBreakdown.slice(0, 5).map((p, idx) => (
+              <span
+                key={idx}
+                className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-neutral-300 font-bold flex items-center gap-1.5"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                {p.platform}: <strong className="text-white font-mono">{p.activeCount}</strong>
+              </span>
+            ))
+          ) : (
+            <span className="text-[11px] text-neutral-500">Đang lắng nghe tín hiệu heartbeat...</span>
+          )}
+          <Link
+            href="/admin/analytics"
+            className="text-xs text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 ml-2"
+          >
+            Xem chi tiết →
           </Link>
         </div>
       </div>

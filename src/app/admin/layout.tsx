@@ -20,6 +20,7 @@ import {
   LogOut,
   Sparkles,
   Zap,
+  Flame,
 } from "lucide-react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -83,6 +84,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const navItems = [
     { href: "/admin", label: "Tổng Quan", icon: LayoutDashboard, exact: true },
     { href: "/admin/products", label: "Sản Phẩm", icon: Package },
+    { href: "/admin/sales", label: "Sản Phẩm Đã Bán", icon: Flame },
     { href: "/admin/products/import-shopee", label: "Nhập Shopee", icon: Zap },
     { href: "/admin/categories", label: "Danh Mục", icon: FolderTree },
     { href: "/admin/orders", label: "Đơn Hàng", icon: ShoppingBag },

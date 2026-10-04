@@ -280,37 +280,73 @@ export class AnalyticsService {
       }
     }
 
-    // Combine stats
+    // Combine stats and normalize platform names
+    const normalizedSourcesMap = new Map<string, any>();
     let totalVisits = 0;
-    const sources = sourcesAgg.map((s) => {
+    for (const s of sourcesAgg) {
+      let sourceName = s.source || "Direct";
+      let category = s.category || "Referral";
+      if (sourceName.toLowerCase().includes("threads")) {
+        sourceName = "Threads";
+        category = "Social";
+      } else if (sourceName.toLowerCase().includes("tiktok")) {
+        sourceName = "TikTok";
+        category = "Social";
+      } else if (sourceName.toLowerCase().includes("facebook") || sourceName === "fb") {
+        sourceName = "Facebook";
+        category = "Social";
+      } else if (sourceName.toLowerCase().includes("instagram") || sourceName === "ig") {
+        sourceName = "Instagram";
+        category = "Social";
+      } else if (sourceName.toLowerCase().includes("google")) {
+        sourceName = "Google";
+        category = "Organic Search";
+      } else if (sourceName.toLowerCase().includes("zalo")) {
+        sourceName = "Zalo";
+        category = "Social";
+      } else if (sourceName.toLowerCase() === "localhost") {
+        sourceName = "Direct";
+        category = "Direct";
+      }
+
       totalVisits += s.visits;
-      const orderData = ordersMap[s.source] || { count: 0, gmv: 0 };
-      const conversionRate = s.visits > 0 ? Number(((orderData.count / s.visits) * 100).toFixed(2)) : 0;
+      const orderData = ordersMap[s.source] || ordersMap[sourceName] || { count: 0, gmv: 0 };
 
-      return {
-        source: s.source || "direct",
-        category: s.category || "direct",
-        medium: s.category || "none",
-        visits: s.visits || 0,
-        visitors: s.visitors || 0,
-        uniqueVisitors: s.visitors || 0,
-        sessions: s.sessions || 0,
-        orders: orderData.count || 0,
-        revenue: orderData.gmv || 0,
-        gmv: orderData.gmv || 0,
-        conversionRate: conversionRate || 0,
-      };
-    });
+      if (normalizedSourcesMap.has(sourceName)) {
+        const item = normalizedSourcesMap.get(sourceName);
+        item.visits += s.visits || 0;
+        item.visitors += s.visitors || 0;
+        item.uniqueVisitors += s.visitors || 0;
+        item.sessions += s.sessions || 0;
+        item.orders += orderData.count || 0;
+        item.revenue += orderData.gmv || 0;
+        item.gmv += orderData.gmv || 0;
+      } else {
+        normalizedSourcesMap.set(sourceName, {
+          source: sourceName,
+          category,
+          medium: category.toLowerCase(),
+          visits: s.visits || 0,
+          visitors: s.visitors || 0,
+          uniqueVisitors: s.visitors || 0,
+          sessions: s.sessions || 0,
+          orders: orderData.count || 0,
+          revenue: orderData.gmv || 0,
+          gmv: orderData.gmv || 0,
+          conversionRate: 0,
+        });
+      }
+    }
 
-    // Calculate share percentage
-    const enrichedSources = sources.map((s) => ({
+    const sources = Array.from(normalizedSourcesMap.values()).map((s) => ({
       ...s,
+      conversionRate: s.visits > 0 ? Number(((s.orders / s.visits) * 100).toFixed(2)) : 0,
       percentage: totalVisits > 0 ? Number(((s.visits / totalVisits) * 100).toFixed(1)) : 0,
     }));
 
     return {
       totalVisits,
-      sources: enrichedSources,
+      sources,
     };
   }
 
@@ -369,31 +405,114 @@ export class AnalyticsService {
   }
 
   /**
-   * Realtime active monitor: shoppers, active visitors now, and top pages.
+   * Realtime active monitor: shoppers, active visitors now, platform breakdown, live visitors, and top pages.
    */
   async getRealtimeMonitor() {
     await connectDB();
 
     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+    const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000);
 
-    const [activeShoppers, activeSessions, topPagesAgg] = await Promise.all([
+    const [activeShoppers, activeSessions, topPagesAgg, platformAgg, recentSessions] = await Promise.all([
       TrafficSession.countDocuments({ lastShoppingActivityAt: { $gte: fiveMinutesAgo } }),
       TrafficSession.countDocuments({ lastSeenAt: { $gte: fiveMinutesAgo } }),
       TrafficSession.aggregate([
-        { $match: { lastSeenAt: { $gte: fiveMinutesAgo } } },
+        { $match: { lastSeenAt: { $gte: fifteenMinutesAgo } } },
         { $group: { _id: "$currentPage", count: { $sum: 1 } } },
         { $sort: { count: -1 } },
-        { $limit: 6 },
+        { $limit: 8 },
       ]),
+      TrafficSession.aggregate([
+        { $match: { lastSeenAt: { $gte: fifteenMinutesAgo } } },
+        {
+          $group: {
+            _id: "$source",
+            count: { $sum: 1 },
+          },
+        },
+        { $sort: { count: -1 } },
+      ]),
+      TrafficSession.find({ lastSeenAt: { $gte: fifteenMinutesAgo } })
+        .sort({ lastSeenAt: -1 })
+        .limit(20)
+        .lean(),
     ]);
+
+    const totalActiveInWindow = platformAgg.reduce((sum, p) => sum + p.count, 0) || 1;
+
+    const platformBreakdown = platformAgg.map((p) => {
+      let sourceName = p._id || "Direct";
+      if (sourceName.toLowerCase().includes("threads")) sourceName = "Threads";
+      if (sourceName.toLowerCase() === "localhost") sourceName = "Direct";
+      return {
+        source: sourceName,
+        count: p.count,
+        percentage: Number(((p.count / totalActiveInWindow) * 100).toFixed(1)),
+      };
+    });
+
+    // Merge duplicate sources if normalization caused any
+    const mergedPlatformsMap = new Map<string, { source: string; count: number; percentage: number }>();
+    for (const item of platformBreakdown) {
+      if (mergedPlatformsMap.has(item.source)) {
+        const existing = mergedPlatformsMap.get(item.source)!;
+        existing.count += item.count;
+        existing.percentage = Number(((existing.count / totalActiveInWindow) * 100).toFixed(1));
+      } else {
+        mergedPlatformsMap.set(item.source, item);
+      }
+    }
+
+    const formattedPlatformBreakdown = Array.from(mergedPlatformsMap.values()).map((p) => ({
+      source: p.source,
+      platform: p.source,
+      count: p.count,
+      activeCount: p.count,
+      percentage: p.percentage,
+    }));
+
+    const formattedLiveVisitors = recentSessions.map((s) => {
+      let sourceName = s.source || "Direct";
+      if (sourceName.toLowerCase().includes("threads")) sourceName = "Threads";
+      if (sourceName.toLowerCase() === "localhost") sourceName = "Direct";
+
+      const secondsAgo = Math.max(0, Math.floor((Date.now() - new Date(s.lastSeenAt).getTime()) / 1000));
+      const curPage = s.currentPage || "/";
+
+      return {
+        sessionId: s.sessionId,
+        visitorId: s.visitorId,
+        source: sourceName,
+        platform: sourceName,
+        category: s.category || "Direct",
+        medium: s.medium || "",
+        currentPage: curPage,
+        currentPath: curPage,
+        landingPage: s.landingPage || "/",
+        device: s.device || "desktop",
+        browser: s.browser || "Unknown",
+        os: s.os || "Unknown",
+        city: s.city || "Việt Nam",
+        pageViewCount: s.pageViewCount || 1,
+        isNewVisitor: !!s.isNewVisitor,
+        lastSeenAt: s.lastSeenAt,
+        secondsAgo,
+      };
+    });
+
+    const activePagesList = topPagesAgg.map((p) => ({
+      path: p._id || "/",
+      count: p.count,
+    }));
 
     return {
       activeShoppers,
       activeSessions,
-      pages: topPagesAgg.map((p) => ({
-        path: p._id || "/",
-        count: p.count,
-      })),
+      recentActiveSessions: activeSessions,
+      platformBreakdown: formattedPlatformBreakdown,
+      liveVisitors: formattedLiveVisitors,
+      activePages: activePagesList,
+      pages: activePagesList,
       timestamp: new Date().toISOString(),
     };
   }

@@ -10,6 +10,7 @@ import {
   X,
   Calendar,
   Percent,
+  FileSpreadsheet,
 } from "lucide-react";
 import { formatVND, formatDate } from "@/lib/utils";
 import { useToastStore } from "@/store/useToastStore";
@@ -136,13 +137,26 @@ export default function AdminVouchersPage() {
             Thiết lập các chương trình khuyến mãi và voucher kích cầu mua sắm
           </p>
         </div>
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="px-4 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs transition-colors flex items-center gap-2 self-start sm:self-auto shadow-lg shadow-pink-600/25"
-        >
-          <Plus className="w-4 h-4" />
-          Tạo Voucher Mới
-        </button>
+        <div className="flex flex-wrap items-center gap-2.5 self-start sm:self-auto">
+          <button
+            type="button"
+            onClick={() => {
+              window.location.href = "/api/admin/export?type=vouchers";
+            }}
+            className="px-3.5 py-2.5 rounded-xl bg-emerald-600/20 border border-emerald-500/30 hover:bg-emerald-600/30 text-emerald-400 font-bold text-xs transition-colors flex items-center gap-2 cursor-pointer"
+            title="Xuất danh sách mã giảm giá ra file Excel .xlsx"
+          >
+            <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+            <span>Xuất Excel</span>
+          </button>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="px-4 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs transition-colors flex items-center gap-2 shadow-lg shadow-pink-600/25 cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            Tạo Voucher Mới
+          </button>
+        </div>
       </div>
 
       {/* Vouchers Table */}

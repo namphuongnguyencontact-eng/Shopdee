@@ -14,6 +14,7 @@ import {
   ExternalLink,
   ShieldCheck,
   Sparkles,
+  FileSpreadsheet,
 } from "lucide-react";
 import { formatVND, formatDate } from "@/lib/utils";
 import { useToastStore } from "@/store/useToastStore";
@@ -148,14 +149,26 @@ export default function AdminOrdersPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-black text-white flex items-center gap-2">
-          Quản Lý Đơn Hàng
-          <ShoppingBag className="w-5 h-5 text-purple-400" />
-        </h1>
-        <p className="text-xs text-neutral-400 mt-1">
-          Theo dõi hành trình logistics và cập nhật tiến độ đơn hàng
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-black text-white flex items-center gap-2">
+            Quản Lý Đơn Hàng
+            <ShoppingBag className="w-5 h-5 text-purple-400" />
+          </h1>
+          <p className="text-xs text-neutral-400 mt-1">
+            Theo dõi hành trình logistics và cập nhật tiến độ đơn hàng
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => {
+            window.location.href = `/api/admin/export?type=orders${statusFilter ? `&status=${statusFilter}` : ""}`;
+          }}
+          className="px-4 py-2 rounded-xl bg-emerald-600/20 border border-emerald-500/30 hover:bg-emerald-600/30 text-emerald-400 text-xs font-bold flex items-center gap-2 transition cursor-pointer self-start sm:self-auto"
+        >
+          <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+          Xuất File Excel (.xlsx)
+        </button>
       </div>
 
       {/* Filter Tabs */}

@@ -69,6 +69,7 @@ export async function POST(req: NextRequest) {
           xp: user.xp,
           walletBalance: user.walletBalance,
         },
+        token,
       },
     });
 

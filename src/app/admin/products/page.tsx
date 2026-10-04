@@ -16,6 +16,7 @@ import {
   Sparkles,
   BarChart2,
   RefreshCw,
+  FileSpreadsheet,
 } from "lucide-react";
 import { formatVND } from "@/lib/utils";
 import { useToastStore } from "@/store/useToastStore";
@@ -211,6 +212,17 @@ export default function AdminProductsPage() {
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isRecalculatingSales ? "animate-spin text-pink-400" : ""}`} />
             <span className="hidden xs:inline">Đồng bộ</span> bán
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              window.location.href = `/api/admin/export?type=products${selectedCategory ? `&category=${selectedCategory}` : ""}`;
+            }}
+            className="px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 font-bold text-xs transition-colors flex items-center gap-1.5 sm:gap-2 border border-emerald-500/30 cursor-pointer"
+            title="Xuất danh sách sản phẩm dạng bảng tính Excel .xlsx chuẩn UTF-8"
+          >
+            <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Xuất Excel</span>
           </button>
           <Link
             href="/admin/products/import-shopee"

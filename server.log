@@ -32,3 +32,41 @@ SSE interval push error: TypeError: Invalid state: Controller is already closed
 
  ✓ Starting...
  ✓ Ready in 6.9s
+   ▲ Next.js 15.5.25
+   - Local:        http://localhost:3000
+   - Network:      http://116.118.9.158:3000
+
+ ✓ Starting...
+ ✓ Ready in 3.5s
+LOGIN ATTEMPT: admin@shopdee.local
+USER FOUND IN DB: admin@shopdee.local ROLE: admin
+LOGIN ATTEMPT: admin@shopdee.local
+USER FOUND IN DB: admin@shopdee.local ROLE: admin
+LOGIN ATTEMPT: admin@shopdee.local
+USER FOUND IN DB: admin@shopdee.local ROLE: admin
+   ▲ Next.js 15.5.25
+   - Local:        http://localhost:3000
+   - Network:      http://116.118.9.158:3000
+
+ ✓ Starting...
+ ✓ Ready in 6s
+LOGIN ATTEMPT: admin@shopdee.local
+USER FOUND IN DB: admin@shopdee.local ROLE: admin
+LOGIN ATTEMPT: admin@shopdee.local
+USER FOUND IN DB: admin@shopdee.local ROLE: admin
+LOGIN ATTEMPT: admin@shopdee.local
+USER FOUND IN DB: admin@shopdee.local ROLE: admin
+LOGIN ATTEMPT: admin@shopdee.local
+USER FOUND IN DB: admin@shopdee.local ROLE: admin
+LOGIN ATTEMPT: admin@shopdee.local
+USER FOUND IN DB: admin@shopdee.local ROLE: admin
+LOGIN ATTEMPT: admin@shopdee.local
+USER FOUND IN DB: admin@shopdee.local ROLE: admin
+LOGIN ATTEMPT: admin@shopdee.local
+USER FOUND IN DB: admin@shopdee.local ROLE: admin
+   ▲ Next.js 15.5.25
+   - Local:        http://localhost:3000
+   - Network:      http://116.118.9.158:3000
+
+ ✓ Starting...
+ ✓ Ready in 20.4s

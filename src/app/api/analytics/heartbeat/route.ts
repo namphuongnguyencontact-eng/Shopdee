@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       const isNewVisitor = !previousVisitorSession;
 
       // Classify traffic
-      const traffic = classifyTraffic(referrer, searchParams);
+      const traffic = classifyTraffic(referrer, searchParams, userAgent);
       const clientDevice = parseUserAgent(userAgent);
 
       await TrafficSession.create({
