@@ -86,4 +86,2149 @@ SSE interval push error: TypeError: Invalid state: Controller is already closed
     at Timeout.<anonymous> (c:\Users\Administrator\Shopdee\.next\server\app\api\live-metrics\stream\route.js:3:180) {
   code: 'ERR_INVALID_STATE'
 }
+^C   ▲ Next.js 15.5.25
+   - Local:        http://localhost:3000
+   - Network:      http://116.118.9.158:3000
+
+ ✓ Starting...
+ ✓ Ready in 5.7s
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+^C   ▲ Next.js 15.5.25
+   - Local:        http://localhost:3000
+   - Network:      http://116.118.9.158:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.1s
+SSE interval push error: TypeError: Invalid state: Controller is already closed
+    at Timeout.<anonymous> (c:\Users\Administrator\Shopdee\.next\server\app\api\live-metrics\stream\route.js:3:180) {
+  code: 'ERR_INVALID_STATE'
+}
+SSE interval push error: TypeError: Invalid state: Controller is already closed
+    at Timeout.<anonymous> (c:\Users\Administrator\Shopdee\.next\server\app\api\live-metrics\stream\route.js:3:180) {
+  code: 'ERR_INVALID_STATE'
+}
+SSE interval push error: TypeError: Invalid state: Controller is already closed
+    at Timeout.<anonymous> (c:\Users\Administrator\Shopdee\.next\server\app\api\live-metrics\stream\route.js:3:180) {
+  code: 'ERR_INVALID_STATE'
+}
+SSE interval push error: TypeError: Invalid state: Controller is already closed
+    at Timeout.<anonymous> (c:\Users\Administrator\Shopdee\.next\server\app\api\live-metrics\stream\route.js:3:180) {
+  code: 'ERR_INVALID_STATE'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+^C   ▲ Next.js 15.5.25
+   - Local:        http://localhost:3000
+   - Network:      http://116.118.9.158:3000
+
+ ✓ Starting...
+ ✓ Ready in 1976ms
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Mỹ Phẩm", className: ..., onError: function onError}
+                                                      ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3778735635'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Laptop", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '1735742099'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "KPOP", className: ..., onError: function onError}
+                                                   ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3164733395'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Decor", className: ..., onError: function onError}
+                                                    ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '3517111283'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: "Xe Máy", className: ..., onError: function onError}
+                                                     ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '885398803'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  {src: ..., alt: ..., className: ..., onError: function onError}
+                                                ^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>) {
+  digest: '688226835'
+}
+SSE interval push error: TypeError: Invalid state: Controller is already closed
+    at Timeout.<anonymous> (c:\Users\Administrator\Shopdee\.next\server\app\api\live-metrics\stream\route.js:3:180) {
+  code: 'ERR_INVALID_STATE'
+}
 ^C

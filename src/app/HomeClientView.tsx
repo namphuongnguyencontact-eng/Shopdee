@@ -35,31 +35,36 @@ interface HomeClientViewProps {
 
 const HERO_SLIDES = [
   {
-    tag: "🔥 XU HƯỚNG MUA SẮM MỚI",
-    title: "Thời Trang & Đồ Decor Gen Z Hot Trend",
-    desc: "Khám phá hàng trăm sản phẩm phong cách Y2K, Streetwear và đồ công nghệ cực phẩm. Giao hàng nhanh 24h toàn quốc!",
-    cta: "Khám phá ngay",
-    link: "/products",
-    bg: "from-[#192841] via-[#1f3354] to-[#121c2e]",
-    badge: "FREESHIP MỌI ĐƠN",
+    id: 1,
+    image: "/banners/hero-banner-1.png",
+    alt: "SHOPDEE Flash Sale Deal Hot Giờ Vàng Freeship 0Đ",
+    link: "https://shopdeevn.online/products",
+    isExternal: false,
+    hasCta: false,
   },
   {
-    tag: "✨ GEN Z TREND PICKS",
-    title: "Góc Setup & Đồ Công Nghệ Cực Phẩm",
-    desc: "Bàn phím cơ hotswap, tai nghe chống ồn, đèn hoàng hôn sunset lamp tạo vibe cực đỉnh.",
-    cta: "Săn đồ setup",
-    link: "/category/tech",
-    bg: "from-[#132034] via-[#192841] to-[#253d63]",
-    badge: "GIẢM ĐẾN 45%",
+    id: 2,
+    image: "/banners/hero-banner-2.png",
+    alt: "F88 Vay Siêu Tốc X6 Thu Nhập 15 Phút Có Tiền",
+    link: "https://ctv.f88.vn/pawn/08df1df1-fbde-4099-8b66-ce0d323094d2",
+    isExternal: true,
+    hasCta: true,
+    ctaText: "Vay ngay",
+  },
+];
+
+const MINI_BANNERS = [
+  {
+    id: 1,
+    image: "/banners/mini-banner-1.png",
+    alt: "SHOPDEE Style - Nâng Trend Đồng Chất Voucher 25% - 50% Freeship 0Đ",
+    link: "https://www.shopdeevn.online/category/thoi-trang-nu",
   },
   {
-    tag: "🌸 SELF-REWARD DAY",
-    title: "Tự Thưởng Bản Thân Mỗi Cuối Tuần",
-    desc: "Đập hộp blind box, son tint căng mọng, gấu bông capybara xả stress tức thì.",
-    cta: "Xem quà tự thưởng",
-    link: "/category/cute-stuff",
-    bg: "from-[#192841] via-[#243754] to-[#192841]",
-    badge: "FREESHIP 0Đ TOÀN QUỐC",
+    id: 2,
+    image: "/banners/mini-banner-2.png",
+    alt: "SHOPDEE Flash Sale Đồ Dùng Xịn Giá Hời Back To School Laptop",
+    link: "https://www.shopdeevn.online/products?category=laptop",
   },
 ];
 
@@ -171,67 +176,76 @@ export default function HomeClientView({
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-5">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-2.5 sm:gap-3">
           {/* Main Slider (2/3 width) */}
-          <div className="lg:col-span-2 relative overflow-hidden rounded-xs shadow-xs border border-slate-200/80 min-h-[220px] sm:min-h-[280px] md:min-h-[320px] flex items-center bg-[#192841] group">
-            {HERO_SLIDES.map((slide, idx) => (
-              <div
-                key={idx}
-                className={`absolute inset-0 bg-gradient-to-r ${slide.bg} p-6 sm:p-10 flex flex-col justify-center transition-opacity duration-700 ${
-                  currentSlide === idx ? "opacity-100 z-10" : "opacity-0 pointer-events-none z-0"
-                }`}
-              >
-                <div className="relative z-10 max-w-lg space-y-2.5 sm:space-y-3 text-white">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-white/15 text-[11px] font-bold uppercase tracking-wider text-slate-100 rounded-2xs">
-                    <Sparkles className="w-3 h-3 text-amber-300" /> {slide.tag}
-                  </div>
+          <div className="lg:col-span-2 relative overflow-hidden rounded-xs shadow-xs border border-slate-200/80 aspect-[1024/341] w-full bg-slate-900 group">
+            {HERO_SLIDES.map((slide, idx) => {
+              const isActive = currentSlide === idx;
+              return (
+                <div
+                  key={slide.id}
+                  className={`absolute inset-0 transition-opacity duration-700 ${
+                    isActive ? "opacity-100 z-10 pointer-events-auto" : "opacity-0 pointer-events-none z-0"
+                  }`}
+                >
+                  <Link
+                    href={slide.link}
+                    target={slide.isExternal ? "_blank" : undefined}
+                    rel={slide.isExternal ? "noopener noreferrer" : undefined}
+                    className="relative block w-full h-full cursor-pointer select-none group/slide"
+                  >
+                    <img
+                      src={slide.image}
+                      alt={slide.alt}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover/slide:scale-[1.01]"
+                      loading={idx === 0 ? "eager" : "lazy"}
+                    />
 
-                  <h1 className="text-xl sm:text-3xl font-black leading-tight tracking-tight drop-shadow-sm">
-                    {slide.title}
-                  </h1>
-
-                  <p className="text-xs sm:text-sm text-slate-200 line-clamp-2 leading-relaxed">
-                    {slide.desc}
-                  </p>
-
-                  <div className="flex items-center gap-2.5 pt-1">
-                    <Link
-                      href={slide.link}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-[#192841] hover:bg-slate-100 font-extrabold text-xs rounded-xs shadow transition"
-                    >
-                      {slide.cta} <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                    <span className="text-[11px] font-bold px-2.5 py-1 border border-white/40 text-white rounded-xs">
-                      {slide.badge}
-                    </span>
-                  </div>
+                    {slide.hasCta && (
+                      <div className="absolute left-[46%] -translate-x-1/2 bottom-[10%] sm:bottom-[11%] md:bottom-[12%] z-10 pointer-events-none">
+                        <span className="inline-flex items-center gap-1 sm:gap-2 px-3 py-1 sm:px-4 sm:py-1.5 md:px-5 md:py-2 bg-gradient-to-r from-emerald-600 to-green-500 hover:from-emerald-500 hover:to-green-400 text-white font-extrabold text-[10px] sm:text-xs md:text-sm uppercase tracking-wider rounded-full shadow-lg shadow-black/30 border border-white/70 transition-transform duration-200 group-hover/slide:scale-105 active:scale-95 pointer-events-auto">
+                          {slide.ctaText}
+                          <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2.5]" />
+                        </span>
+                      </div>
+                    )}
+                  </Link>
                 </div>
-              </div>
-            ))}
+              );
+            })}
 
             {/* Slider Navigation Arrows */}
             <button
-              onClick={() => setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+              }}
               aria-label="Slide trước"
-              className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-10 bg-black/30 hover:bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition rounded-r-xs"
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-9 sm:w-8 sm:h-10 bg-black/40 hover:bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition rounded-r-xs cursor-pointer"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
             <button
-              onClick={() => setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+              }}
               aria-label="Slide tiếp theo"
-              className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-10 bg-black/30 hover:bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition rounded-l-xs"
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-9 sm:w-8 sm:h-10 bg-black/40 hover:bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition rounded-l-xs cursor-pointer"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
 
             {/* Carousel Dots */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
+            <div className="absolute bottom-2 sm:bottom-2.5 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
               {HERO_SLIDES.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrentSlide(i)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentSlide(i);
+                  }}
                   aria-label={`Slide ${i + 1}`}
-                  className={`h-1.5 transition-all rounded-full ${
-                    currentSlide === i ? "w-5 bg-white" : "w-1.5 bg-white/40 hover:bg-white/70"
+                  className={`h-1.5 transition-all rounded-full cursor-pointer ${
+                    currentSlide === i ? "w-5 bg-white shadow-xs" : "w-1.5 bg-white/50 hover:bg-white/80"
                   }`}
                 />
               ))}
@@ -239,40 +253,21 @@ export default function HomeClientView({
           </div>
 
           {/* Shopee Right Stacked Mini Banners (1/3 width) */}
-          <div className="hidden lg:flex flex-col gap-2.5 sm:gap-3">
-            <Link
-              href="/products?sort=flash_sale"
-              className="flex-1 bg-gradient-to-r from-red-600 via-rose-600 to-[#192841] text-white p-5 rounded-xs shadow-xs border border-slate-200/80 flex flex-col justify-center hover:opacity-95 transition relative overflow-hidden group"
-            >
-              <div className="relative z-10 space-y-1.5">
-                <span className="text-[10px] font-black uppercase px-2 py-0.5 bg-amber-400 text-slate-900 rounded-2xs inline-block">
-                  ⚡ DEAL SỐC HÔM NAY
-                </span>
-                <h3 className="font-black text-lg leading-tight">
-                  Xả Kho Đón Hè <br /> Giảm Đến 50%
-                </h3>
-                <span className="text-xs text-rose-100 font-medium flex items-center gap-1">
-                  Săn ngay kẻo lỡ <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </div>
-            </Link>
-
-            <Link
-              href="/products"
-              className="flex-1 bg-gradient-to-r from-[#192841] via-[#243a5e] to-indigo-900 text-white p-5 rounded-xs shadow-xs border border-slate-200/80 flex flex-col justify-center hover:opacity-95 transition relative overflow-hidden group"
-            >
-              <div className="relative z-10 space-y-1.5">
-                <span className="text-[10px] font-black uppercase px-2 py-0.5 bg-emerald-400 text-slate-900 rounded-2xs inline-block">
-                  FREESHIP 0Đ
-                </span>
-                <h3 className="font-black text-lg leading-tight">
-                  Tất Cả Đơn Hàng <br /> Giao Nhanh 24 Giờ
-                </h3>
-                <span className="text-xs text-slate-300 font-medium flex items-center gap-1">
-                  Khám phá ưu đãi <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </div>
-            </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-col gap-2.5 sm:gap-3">
+            {MINI_BANNERS.map((banner) => (
+              <Link
+                key={banner.id}
+                href={banner.link}
+                className="flex-1 relative overflow-hidden rounded-xs shadow-xs border border-slate-200/80 aspect-[1024/342] lg:aspect-auto group cursor-pointer block select-none bg-slate-900"
+              >
+                <img
+                  src={banner.image}
+                  alt={banner.alt}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  loading="lazy"
+                />
+              </Link>
+            ))}
           </div>
         </div>
       </section>
