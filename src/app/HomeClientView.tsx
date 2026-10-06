@@ -38,7 +38,7 @@ const HERO_SLIDES = [
     id: 1,
     image: "/banners/hero-banner-1.png",
     alt: "SHOPDEE Flash Sale Deal Hot Giờ Vàng Freeship 0Đ",
-    link: "https://shopdeevn.online/products",
+    link: "https://www.shopdeevn.online/products",
     isExternal: false,
     hasCta: false,
   },
@@ -50,6 +50,38 @@ const HERO_SLIDES = [
     isExternal: true,
     hasCta: true,
     ctaText: "Vay ngay",
+    ctaPosition: "left-[46%] -translate-x-1/2 bottom-[10%] sm:bottom-[11%] md:bottom-[12%]",
+    ctaStyle: "bg-gradient-to-r from-emerald-600 to-green-500 hover:from-emerald-500 hover:to-green-400 text-white shadow-emerald-900/40 border-white/80",
+  },
+  {
+    id: 3,
+    image: "/banners/hero-banner-3.png",
+    alt: "F88 Vay Siêu Tốc Phí Siêu Tốt - Chỉ Cần Đăng Ký Xe",
+    link: "https://ctv.f88.vn/pawn/08df1df1-fbde-4099-8b66-ce0d323094d2",
+    isExternal: true,
+    hasCta: true,
+    ctaText: "Nhận tư vấn tại đây",
+    ctaPosition: "left-[32%] -translate-x-1/2 bottom-[11%] sm:bottom-[13%] md:bottom-[15%]",
+    ctaStyle: "bg-gradient-to-r from-emerald-600 via-green-500 to-emerald-600 hover:from-emerald-500 hover:to-green-400 text-white shadow-emerald-900/40 border-white/80",
+  },
+  {
+    id: 4,
+    image: "/banners/hero-banner-4.png",
+    alt: "F88 Hạn Mức Trong Tay Chạm Là Có Ngay - Chỉ Cần Đăng Ký Xe",
+    link: "https://ctv.f88.vn/pawn/08df1df1-fbde-4099-8b66-ce0d323094d2",
+    isExternal: true,
+    hasCta: true,
+    ctaText: "Vay ngay",
+    ctaPosition: "left-[24%] -translate-x-1/2 bottom-[6%] sm:bottom-[7%] md:bottom-[8%]",
+    ctaStyle: "bg-gradient-to-r from-emerald-600 to-green-500 hover:from-emerald-500 hover:to-green-400 text-white shadow-emerald-900/40 border-white/80",
+  },
+  {
+    id: 5,
+    image: "/banners/hero-banner-5.png",
+    alt: "SHOPDEE Nổi Danh Khắp Vùng Trao Deal Cực Khủng - Freeship 0Đ Voucher 35%",
+    link: "https://www.shopdeevn.online/products?sort=flash_sale",
+    isExternal: false,
+    hasCta: false,
   },
 ];
 
@@ -200,8 +232,8 @@ export default function HomeClientView({
                     />
 
                     {slide.hasCta && (
-                      <div className="absolute left-[46%] -translate-x-1/2 bottom-[10%] sm:bottom-[11%] md:bottom-[12%] z-10 pointer-events-none">
-                        <span className="inline-flex items-center gap-1 sm:gap-2 px-3 py-1 sm:px-4 sm:py-1.5 md:px-5 md:py-2 bg-gradient-to-r from-emerald-600 to-green-500 hover:from-emerald-500 hover:to-green-400 text-white font-extrabold text-[10px] sm:text-xs md:text-sm uppercase tracking-wider rounded-full shadow-lg shadow-black/30 border border-white/70 transition-transform duration-200 group-hover/slide:scale-105 active:scale-95 pointer-events-auto">
+                      <div className={`absolute ${slide.ctaPosition || "left-[46%] -translate-x-1/2 bottom-[10%] sm:bottom-[11%] md:bottom-[12%]"} z-10 pointer-events-none`}>
+                        <span className={`inline-flex items-center gap-1 sm:gap-2 px-3 py-1 sm:px-4 sm:py-1.5 md:px-5 md:py-2 ${slide.ctaStyle || "bg-gradient-to-r from-emerald-600 to-green-500 hover:from-emerald-500 hover:to-green-400 text-white"} font-extrabold text-[10px] sm:text-xs md:text-sm uppercase tracking-wider rounded-full shadow-lg shadow-black/30 border border-white/70 transition-transform duration-200 group-hover/slide:scale-105 active:scale-95 pointer-events-auto`}>
                           {slide.ctaText}
                           <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2.5]" />
                         </span>
