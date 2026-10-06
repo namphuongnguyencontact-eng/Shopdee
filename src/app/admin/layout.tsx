@@ -21,6 +21,7 @@ import {
   Sparkles,
   Zap,
   Flame,
+  Settings,
 } from "lucide-react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -91,6 +92,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: "/admin/users", label: "Người Dùng", icon: Users },
     { href: "/admin/vouchers", label: "Mã Giảm Giá", icon: Ticket },
     { href: "/admin/analytics", label: "Phân Tích Dữ Liệu", icon: BarChart3 },
+    { href: "/admin/settings", label: "Cài Đặt", icon: Settings },
   ];
 
   const handleLogout = async () => {

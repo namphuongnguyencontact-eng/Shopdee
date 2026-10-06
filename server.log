@@ -4775,4 +4775,10 @@ SSE interval push error: TypeError: Invalid state: Controller is already closed
 
  ✓ Starting...
  ✓ Ready in 1833ms
+^C   ▲ Next.js 15.5.25
+   - Local:        http://localhost:3000
+   - Network:      http://116.118.9.158:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.8s
 ^C

@@ -9,6 +9,7 @@ import ToastContainer from "@/components/ui/ToastContainer";
 import CompareBar from "@/components/shop/CompareBar";
 import CompareModal from "@/components/shop/CompareModal";
 import TrafficTracker from "@/components/analytics/TrafficTracker";
+import GoogleAnalyticsTag from "@/components/analytics/GoogleAnalyticsTag";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -44,6 +45,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
+      <head>
+        <GoogleAnalyticsTag />
+      </head>
       <body className="antialiased min-h-screen flex flex-col bg-[#f5f5f5] text-[#192841] selection:bg-[#192841] selection:text-white">
         <Suspense fallback={null}>
           <TrafficTracker />
