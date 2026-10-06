@@ -20,6 +20,10 @@ import {
   AlertTriangle,
   Sparkles,
   FileSpreadsheet,
+  Globe,
+  Share2,
+  Laptop,
+  Filter,
 } from "lucide-react";
 import { formatDate, formatVND } from "@/lib/utils";
 import { useToastStore } from "@/store/useToastStore";
@@ -41,8 +45,82 @@ interface UserItem {
   walletBalance?: number;
   orderCount?: number;
   totalSpent?: number;
+  acquisitionSource?: string;
+  acquisitionMedium?: string;
+  acquisitionCampaign?: string;
+  acquisitionReferrer?: string;
+  registrationIp?: string;
+  registrationDevice?: string;
   createdAt: string;
 }
+
+const getSourceBadge = (source?: string) => {
+  const s = (source || "Direct").trim();
+  const lower = s.toLowerCase();
+
+  if (lower.includes("facebook") || lower.includes("fb")) {
+    return {
+      name: "Facebook",
+      badgeClass: "bg-blue-600/15 text-blue-400 border-blue-500/30",
+      dotClass: "bg-blue-400",
+      icon: "🌐",
+    };
+  }
+  if (lower.includes("tiktok")) {
+    return {
+      name: "TikTok",
+      badgeClass: "bg-pink-600/15 text-pink-400 border-pink-500/30",
+      dotClass: "bg-pink-400",
+      icon: "🎵",
+    };
+  }
+  if (lower.includes("thread")) {
+    return {
+      name: "Threads",
+      badgeClass: "bg-neutral-800 text-white border-white/20",
+      dotClass: "bg-white",
+      icon: "🧵",
+    };
+  }
+  if (lower.includes("google")) {
+    return {
+      name: "Google",
+      badgeClass: "bg-emerald-600/15 text-emerald-400 border-emerald-500/30",
+      dotClass: "bg-emerald-400",
+      icon: "🔍",
+    };
+  }
+  if (lower.includes("zalo")) {
+    return {
+      name: "Zalo",
+      badgeClass: "bg-cyan-600/15 text-cyan-400 border-cyan-500/30",
+      dotClass: "bg-cyan-400",
+      icon: "💬",
+    };
+  }
+  if (lower.includes("instagram") || lower.includes("insta")) {
+    return {
+      name: "Instagram",
+      badgeClass: "bg-fuchsia-600/15 text-fuchsia-400 border-fuchsia-500/30",
+      dotClass: "bg-fuchsia-400",
+      icon: "📸",
+    };
+  }
+  if (lower.includes("youtube")) {
+    return {
+      name: "YouTube",
+      badgeClass: "bg-red-600/15 text-red-400 border-red-500/30",
+      dotClass: "bg-red-400",
+      icon: "▶️",
+    };
+  }
+  return {
+    name: s || "Direct",
+    badgeClass: "bg-neutral-800 text-neutral-300 border-white/10",
+    dotClass: "bg-neutral-400",
+    icon: "🧭",
+  };
+};
 
 interface PurchasedItem {
   productId: string;
@@ -101,6 +179,8 @@ export default function AdminUsersPage() {
   const [users, setUsers] = useState<UserItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [selectedSource, setSelectedSource] = useState<string>("all");
+  const [sourcesSummary, setSourcesSummary] = useState<Array<{ source: string; count: number }>>([]);
   const { addToast } = useToastStore();
 
   // User detail modal state
@@ -114,11 +194,15 @@ export default function AdminUsersPage() {
       setLoading(true);
       const params = new URLSearchParams();
       if (search) params.append("search", search);
+      if (selectedSource && selectedSource !== "all") params.append("source", selectedSource);
 
       const res = await fetch(`/api/admin/users?${params.toString()}`);
       const json = await res.json();
       if (json.success) {
         setUsers(json.data);
+        if (json.sourcesSummary) {
+          setSourcesSummary(json.sourcesSummary);
+        }
       }
     } catch (err) {
       console.error("Failed to load users:", err);
@@ -132,7 +216,7 @@ export default function AdminUsersPage() {
       loadUsers();
     }, 300);
     return () => clearTimeout(timer);
-  }, [search]);
+  }, [search, selectedSource]);
 
   const loadUserDetail = async (userId: string) => {
     setSelectedUserId(userId);
@@ -203,13 +287,16 @@ export default function AdminUsersPage() {
             <Users className="w-6 h-6 text-pink-500" /> Quản Lý Người Dùng & Khách Hàng
           </h1>
           <p className="text-neutral-400 text-xs mt-1">
-            Theo dõi tài khoản, phân quyền, xem thống kê chi tiêu và chi tiết sản phẩm khách hàng đã mua
+            Theo dõi tài khoản, phân quyền, nhận diện nguồn gốc khách hàng (Facebook, TikTok, Threads...) và chi tiết sản phẩm đã mua
           </p>
         </div>
         <button
           type="button"
           onClick={() => {
-            window.location.href = `/api/admin/export?type=users${search ? `&search=${encodeURIComponent(search)}` : ""}`;
+            const params = new URLSearchParams({ type: "users" });
+            if (search) params.append("search", search);
+            if (selectedSource && selectedSource !== "all") params.append("source", selectedSource);
+            window.location.href = `/api/admin/export?${params.toString()}`;
           }}
           className="px-4 py-2 rounded-xl bg-emerald-600/20 border border-emerald-500/30 hover:bg-emerald-600/30 text-emerald-400 text-xs font-bold flex items-center gap-2 transition cursor-pointer self-start sm:self-auto"
         >
@@ -218,21 +305,65 @@ export default function AdminUsersPage() {
         </button>
       </div>
 
-      {/* Filter / Search bar */}
-      <div className="bg-neutral-900 border border-white/5 rounded-2xl p-4 flex items-center justify-between gap-4">
-        <div className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-          <input
-            type="text"
-            placeholder="Tìm theo tên, email, tên đăng nhập..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-neutral-950 border border-white/10 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-pink-500"
-          />
+      {/* Filter / Search bar & Platform Pills */}
+      <div className="bg-neutral-900 border border-white/5 rounded-2xl p-4 space-y-3">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div className="relative flex-1 max-w-md">
+            <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Tìm theo tên, email, tên đăng nhập, nguồn..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full bg-neutral-950 border border-white/10 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-pink-500"
+            />
+          </div>
+
+          <div className="text-xs text-neutral-400 font-semibold flex items-center gap-2">
+            <span>Tổng số: <strong className="text-white font-bold">{users.length}</strong> người dùng hiển thị</span>
+          </div>
         </div>
 
-        <div className="text-xs text-neutral-400 font-semibold">
-          Tổng số: <span className="text-white font-bold">{users.length}</span> người dùng
+        {/* Source Pills */}
+        <div className="flex items-center gap-1.5 flex-wrap pt-2 border-t border-white/5 text-xs">
+          <span className="text-[11px] font-semibold text-neutral-400 mr-1 flex items-center gap-1">
+            <Filter className="w-3 h-3 text-pink-500" /> Nguồn đến từ:
+          </span>
+          <button
+            onClick={() => setSelectedSource("all")}
+            className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border transition ${
+              selectedSource === "all"
+                ? "bg-pink-600 text-white border-pink-500 shadow-sm"
+                : "bg-white/5 text-neutral-400 border-white/10 hover:text-white hover:bg-white/10"
+            }`}
+          >
+            Tất cả
+          </button>
+          {["Facebook", "Threads", "TikTok", "Google", "Zalo", "Direct"].map((src) => {
+            const sum = sourcesSummary.find((s) => s.source.toLowerCase() === src.toLowerCase());
+            const count = sum ? sum.count : 0;
+            const badge = getSourceBadge(src);
+            const isSelected = selectedSource.toLowerCase() === src.toLowerCase();
+            return (
+              <button
+                key={src}
+                onClick={() => setSelectedSource(isSelected ? "all" : src)}
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border flex items-center gap-1.5 transition ${
+                  isSelected
+                    ? "bg-pink-600 text-white border-pink-500 shadow-sm"
+                    : "bg-white/5 text-neutral-400 border-white/10 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                <span>{badge.icon}</span>
+                <span>{src}</span>
+                {count > 0 && (
+                  <span className={`px-1.5 py-0.2 rounded-full text-[9px] font-black ${isSelected ? "bg-white/20 text-white" : "bg-neutral-800 text-neutral-300"}`}>
+                    {count}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -243,6 +374,7 @@ export default function AdminUsersPage() {
             <thead className="bg-neutral-950 text-neutral-400 uppercase tracking-wider text-[10px] border-b border-white/5">
               <tr>
                 <th className="py-3.5 px-4">Thành Viên</th>
+                <th className="py-3.5 px-4">Nguồn Đến</th>
                 <th className="py-3.5 px-4">Vai Trò</th>
                 <th className="py-3.5 px-4 text-center">Đơn Hàng</th>
                 <th className="py-3.5 px-4 text-right">Tổng Chi Tiêu</th>
@@ -254,104 +386,116 @@ export default function AdminUsersPage() {
             <tbody className="divide-y divide-white/5">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-neutral-400">
+                  <td colSpan={8} className="py-12 text-center text-neutral-400">
                     Đang tải danh sách người dùng...
                   </td>
                 </tr>
               ) : users.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-neutral-400">
+                  <td colSpan={8} className="py-12 text-center text-neutral-400">
                     Không tìm thấy người dùng phù hợp.
                   </td>
                 </tr>
               ) : (
-                users.map((item) => (
-                  <tr key={item._id} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="py-3 px-4">
-                      <div className="flex items-center gap-2.5">
-                        {item.avatar ? (
-                          <img
-                            src={item.avatar}
-                            alt={item.name}
-                            className="w-8 h-8 rounded-full object-cover ring-1 ring-white/10 shrink-0"
-                          />
-                        ) : (
-                          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-purple-600 text-white font-bold flex items-center justify-center text-xs shrink-0">
-                            {item.name.charAt(0).toUpperCase()}
+                users.map((item) => {
+                  const srcBadge = getSourceBadge(item.acquisitionSource);
+                  return (
+                    <tr key={item._id} className="hover:bg-white/[0.02] transition-colors">
+                      <td className="py-3 px-4">
+                        <div className="flex items-center gap-2.5">
+                          {item.avatar ? (
+                            <img
+                              src={item.avatar}
+                              alt={item.name}
+                              className="w-8 h-8 rounded-full object-cover ring-1 ring-white/10 shrink-0"
+                            />
+                          ) : (
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-purple-600 text-white font-bold flex items-center justify-center text-xs shrink-0">
+                              {item.name.charAt(0).toUpperCase()}
+                            </div>
+                          )}
+                          <div>
+                            <p className="font-bold text-white hover:text-pink-400 cursor-pointer" onClick={() => loadUserDetail(item._id)}>
+                              {item.name}
+                            </p>
+                            <p className="text-[10px] text-neutral-400">
+                              {item.email} {item.username ? `(@${item.username})` : ""}
+                            </p>
                           </div>
-                        )}
-                        <div>
-                          <p className="font-bold text-white hover:text-pink-400 cursor-pointer" onClick={() => loadUserDetail(item._id)}>
-                            {item.name}
-                          </p>
-                          <p className="text-[10px] text-neutral-400">
-                            {item.email} {item.username ? `(@${item.username})` : ""}
-                          </p>
                         </div>
-                      </div>
-                    </td>
-                    <td className="py-3 px-4">
-                      <button
-                        onClick={() => handleToggleRole(item)}
-                        className={`px-2 py-0.5 rounded-md text-[10px] font-bold border transition-colors ${
-                          item.role === "admin"
-                            ? "bg-purple-500/20 text-purple-300 border-purple-500/30 hover:bg-purple-500/30"
-                            : "bg-white/5 text-neutral-400 border-white/10 hover:text-white"
-                        }`}
-                        title="Bấm để chuyển đổi vai trò"
-                      >
-                        {item.role.toUpperCase()}
-                      </button>
-                    </td>
-                    <td className="py-3 px-4 text-center">
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/5 text-neutral-300 font-bold text-[11px]">
-                        <ShoppingBag className="w-3 h-3 text-pink-400" />
-                        {item.orderCount || 0}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 text-right">
-                      <span className="font-bold text-emerald-400 text-[11px]">
-                        {formatVND(item.totalSpent || 0)}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4">
-                      <span
-                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${
-                          item.isActive
-                            ? "bg-green-500/10 text-green-400 border-green-500/20"
-                            : "bg-red-500/10 text-red-400 border-red-500/20"
-                        }`}
-                      >
-                        {item.isActive ? "Hoạt Động" : "Bị Khóa"}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 text-neutral-400 text-[11px]">
-                      {formatDate(item.createdAt)}
-                    </td>
-                    <td className="py-3 px-4 text-right">
-                      <div className="inline-flex items-center gap-1.5">
-                        <button
-                          onClick={() => loadUserDetail(item._id)}
-                          className="px-2.5 py-1.5 rounded-lg bg-pink-500/10 hover:bg-pink-500/20 text-pink-400 font-semibold text-[11px] transition-colors flex items-center gap-1"
-                          title="Xem chi tiết khách hàng & sản phẩm đã mua"
+                      </td>
+                      <td className="py-3 px-4">
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border ${srcBadge.badgeClass}`}
+                          title={`Nguồn: ${item.acquisitionSource || "Direct"}\nReferrer: ${item.acquisitionReferrer || "Trực tiếp"}\nThiết bị: ${item.registrationDevice || "Không rõ"}`}
                         >
-                          <Eye className="w-3.5 h-3.5" /> Chi tiết
-                        </button>
+                          <span>{srcBadge.icon}</span>
+                          <span>{srcBadge.name}</span>
+                        </span>
+                      </td>
+                      <td className="py-3 px-4">
                         <button
-                          onClick={() => handleToggleActive(item)}
-                          className={`p-1.5 rounded-lg transition-colors ${
-                            item.isActive
-                              ? "bg-red-500/10 hover:bg-red-500/20 text-red-400"
-                              : "bg-green-500/10 hover:bg-green-500/20 text-green-400"
+                          onClick={() => handleToggleRole(item)}
+                          className={`px-2 py-0.5 rounded-md text-[10px] font-bold border transition-colors ${
+                            item.role === "admin"
+                              ? "bg-purple-500/20 text-purple-300 border-purple-500/30 hover:bg-purple-500/30"
+                              : "bg-white/5 text-neutral-400 border-white/10 hover:text-white"
                           }`}
-                          title={item.isActive ? "Khóa tài khoản" : "Mở khóa tài khoản"}
+                          title="Bấm để chuyển đổi vai trò"
                         >
-                          {item.isActive ? <ShieldAlert className="w-3.5 h-3.5" /> : <ShieldCheck className="w-3.5 h-3.5" />}
+                          {item.role.toUpperCase()}
                         </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                      </td>
+                      <td className="py-3 px-4 text-center">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/5 text-neutral-300 font-bold text-[11px]">
+                          <ShoppingBag className="w-3 h-3 text-pink-400" />
+                          {item.orderCount || 0}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 text-right">
+                        <span className="font-bold text-emerald-400 text-[11px]">
+                          {formatVND(item.totalSpent || 0)}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4">
+                        <span
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${
+                            item.isActive
+                              ? "bg-green-500/10 text-green-400 border-green-500/20"
+                              : "bg-red-500/10 text-red-400 border-red-500/20"
+                          }`}
+                        >
+                          {item.isActive ? "Hoạt Động" : "Bị Khóa"}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 text-neutral-400 text-[11px]">
+                        {formatDate(item.createdAt)}
+                      </td>
+                      <td className="py-3 px-4 text-right">
+                        <div className="inline-flex items-center gap-1.5">
+                          <button
+                            onClick={() => loadUserDetail(item._id)}
+                            className="px-2.5 py-1.5 rounded-lg bg-pink-500/10 hover:bg-pink-500/20 text-pink-400 font-semibold text-[11px] transition-colors flex items-center gap-1"
+                            title="Xem chi tiết khách hàng & sản phẩm đã mua"
+                          >
+                            <Eye className="w-3.5 h-3.5" /> Chi tiết
+                          </button>
+                          <button
+                            onClick={() => handleToggleActive(item)}
+                            className={`p-1.5 rounded-lg transition-colors ${
+                              item.isActive
+                                ? "bg-red-500/10 hover:bg-red-500/20 text-red-400"
+                                : "bg-green-500/10 hover:bg-green-500/20 text-green-400"
+                            }`}
+                            title={item.isActive ? "Khóa tài khoản" : "Mở khóa tài khoản"}
+                          >
+                            {item.isActive ? <ShieldAlert className="w-3.5 h-3.5" /> : <ShieldCheck className="w-3.5 h-3.5" />}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -685,9 +829,53 @@ export default function AdminUsersPage() {
                   </div>
                 )}
 
-                {/* Tab 3: Detailed Profile Information */}
+                {/* Tab 3: Detailed Profile Information & User Acquisition */}
                 {activeTab === "info" && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    {/* User Acquisition Card */}
+                    <div className="bg-neutral-950 border border-white/5 rounded-xl p-4 space-y-3 sm:col-span-2">
+                      <h4 className="font-bold text-white text-sm border-b border-white/5 pb-2 flex items-center gap-2">
+                        <Globe className="w-4 h-4 text-pink-400" /> Nguồn Gốc Người Dùng & Thông Tin Thiết Bị (User Acquisition)
+                      </h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-neutral-300">
+                        <div className="bg-white/5 p-3 rounded-lg border border-white/5">
+                          <span className="text-neutral-500 block text-[11px] mb-1">Nền tảng tiếp cận:</span>
+                          {(() => {
+                            const b = getSourceBadge(userDetail.user.acquisitionSource);
+                            return (
+                              <div className="flex items-center gap-2">
+                                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border ${b.badgeClass}`}>
+                                  <span>{b.icon}</span>
+                                  <span>{b.name}</span>
+                                </span>
+                              </div>
+                            );
+                          })()}
+                        </div>
+                        <div className="bg-white/5 p-3 rounded-lg border border-white/5">
+                          <span className="text-neutral-500 block text-[11px] mb-1">Kênh (Medium) / Chiến dịch:</span>
+                          <span className="font-semibold text-white text-xs">
+                            {userDetail.user.acquisitionMedium || "organic"} {userDetail.user.acquisitionCampaign ? `(${userDetail.user.acquisitionCampaign})` : ""}
+                          </span>
+                        </div>
+                        <div className="bg-white/5 p-3 rounded-lg border border-white/5">
+                          <span className="text-neutral-500 block text-[11px] mb-1">IP & Thiết bị đăng ký:</span>
+                          <div className="text-xs">
+                            <span className="font-mono text-emerald-400 block">{userDetail.user.registrationIp || "Không xác định"}</span>
+                            <span className="text-[10px] text-neutral-400 block truncate" title={userDetail.user.registrationDevice}>
+                              {userDetail.user.registrationDevice || "Web Browser"}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="bg-white/5 p-3 rounded-lg border border-white/5 sm:col-span-3">
+                          <span className="text-neutral-500 block text-[11px] mb-1">Referrer URL (Trang giới thiệu ban đầu):</span>
+                          <p className="font-mono text-[11px] text-neutral-300 break-all select-all">
+                            {userDetail.user.acquisitionReferrer || "Trực tiếp vào website (Direct / Bookmark / gõ URL)"}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="bg-neutral-950 border border-white/5 rounded-xl p-4 space-y-3">
                       <h4 className="font-bold text-white text-sm border-b border-white/5 pb-2">
                         Thông Tin Liên Hệ & Cá Nhân

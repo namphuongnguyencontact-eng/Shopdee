@@ -72,6 +72,8 @@ const TrafficSessionSchema = new Schema<ITrafficSession>(
 TrafficSessionSchema.index({ createdAt: -1 });
 TrafficSessionSchema.index({ source: 1, createdAt: -1 });
 TrafficSessionSchema.index({ visitorId: 1, createdAt: -1 });
+TrafficSessionSchema.index({ ip: 1, createdAt: -1 });
+TrafficSessionSchema.index({ visitorId: 1, ip: 1 });
 TrafficSessionSchema.index({ lastShoppingActivityAt: -1 });
 
 export const TrafficSession: Model<ITrafficSession> =

@@ -165,6 +165,10 @@ export class AnalyticsService {
   /**
    * Fetches comprehensive Traffic Overview and time-series metrics - strictly excludes Admin data.
    */
+  /**
+   * Fetches comprehensive Traffic Overview and time-series metrics - strictly excludes Admin data.
+   * Visitor and Pageviews are strictly deduplicated by unique device / IP address.
+   */
   async getTrafficOverview(startDate: Date, endDate: Date) {
     await connectDB();
     const adminIds = await this.getAdminUserIds();
@@ -173,14 +177,60 @@ export class AnalyticsService {
       createdAt: { $gte: startDate, $lte: endDate },
       isAdmin: { $ne: true },
       userId: { $nin: adminIds },
+      currentPage: { $not: /^\/admin/ },
+      landingPage: { $not: /^\/admin/ },
     };
 
-    const [totalVisits, pageViews, uniqueVisitorsAgg, sessionsCount, newVisitorsCount, completedOrdersAgg] = await Promise.all([
-      TrafficSession.countDocuments(matchQuery),
-      AnalyticsEvent.countDocuments({ eventType: "page_view", ...matchQuery }),
-      TrafficSession.distinct("visitorId", matchQuery),
-      TrafficSession.countDocuments(matchQuery),
-      TrafficSession.countDocuments({ isNewVisitor: true, ...matchQuery }),
+    const eventMatchQuery = {
+      createdAt: { $gte: startDate, $lte: endDate },
+      isAdmin: { $ne: true },
+      userId: { $nin: adminIds },
+      path: { $not: /^\/admin/ },
+    };
+
+    const [
+      uniqueVisitorsAgg,
+      pageViewsAgg,
+      newVisitorsAgg,
+      completedOrdersAgg,
+    ] = await Promise.all([
+      // 1. Unique Visitors strictly deduplicated by unique device / IP address
+      TrafficSession.aggregate([
+        { $match: matchQuery },
+        {
+          $group: {
+            _id: { $ifNull: ["$ip", "$visitorId"] },
+          },
+        },
+        { $count: "total" },
+      ]),
+
+      // 2. Pageviews strictly deduplicated by unique device / IP per path
+      AnalyticsEvent.aggregate([
+        { $match: { eventType: "page_view", ...eventMatchQuery } },
+        {
+          $group: {
+            _id: {
+              deviceKey: { $ifNull: ["$ip", "$visitorId"] },
+              path: "$path",
+            },
+          },
+        },
+        { $count: "total" },
+      ]),
+
+      // 3. New visitors strictly by unique device / IP
+      TrafficSession.aggregate([
+        { $match: { isNewVisitor: true, ...matchQuery } },
+        {
+          $group: {
+            _id: { $ifNull: ["$ip", "$visitorId"] },
+          },
+        },
+        { $count: "total" },
+      ]),
+
+      // 4. Completed Orders
       Order.aggregate([
         {
           $match: {
@@ -199,36 +249,48 @@ export class AnalyticsService {
       ]),
     ]);
 
-    const uniqueVisitors = uniqueVisitorsAgg.length;
+    const uniqueVisitors = uniqueVisitorsAgg[0]?.total || 0;
+    const pageViews = pageViewsAgg[0]?.total || 0;
+    const newVisitorsCount = newVisitorsAgg[0]?.total || 0;
+    const totalVisits = uniqueVisitors;
+    const sessionsCount = uniqueVisitors;
     const returningVisitors = Math.max(0, uniqueVisitors - newVisitorsCount);
     const orderStats = completedOrdersAgg[0] || { totalOrders: 0, totalRevenue: 0 };
     const totalOrders = orderStats.totalOrders;
     const totalRevenue = orderStats.totalRevenue;
-    const conversionRate = sessionsCount > 0 ? Number(((totalOrders / sessionsCount) * 100).toFixed(2)) : 0;
+    const conversionRate = uniqueVisitors > 0 ? Number(((totalOrders / uniqueVisitors) * 100).toFixed(2)) : 0;
     const avgOrderValue = totalOrders > 0 ? Math.round(totalRevenue / totalOrders) : 0;
 
     // Time-series aggregation (by day or hour)
     const diffHours = Math.abs(endDate.getTime() - startDate.getTime()) / (1000 * 3600);
     const isHourly = diffHours <= 48; // group by hour if <= 2 days, else by day
-
     const dateFormat = isHourly ? "%Y-%m-%d %H:00" : "%Y-%m-%d";
 
-    const timeSeries = await TrafficSession.aggregate([
-      { $match: matchQuery },
+    // Deduplicated time-series by device / IP
+    const timeSeries = await AnalyticsEvent.aggregate([
+      { $match: { eventType: "page_view", ...eventMatchQuery } },
       {
         $group: {
-          _id: { $dateToString: { format: dateFormat, date: "$createdAt", timezone: "Asia/Ho_Chi_Minh" } },
-          visits: { $sum: 1 },
-          uniqueVisitors: { $addToSet: "$visitorId" },
-          pageViews: { $sum: "$pageViewCount" },
+          _id: {
+            time: { $dateToString: { format: dateFormat, date: "$createdAt", timezone: "Asia/Ho_Chi_Minh" } },
+            deviceKey: { $ifNull: ["$ip", "$visitorId"] },
+            path: "$path",
+          },
+        },
+      },
+      {
+        $group: {
+          _id: "$_id.time",
+          pageViews: { $sum: 1 },
+          uniqueVisitorsSet: { $addToSet: "$_id.deviceKey" },
         },
       },
       {
         $project: {
           _id: 1,
-          visits: 1,
           pageViews: 1,
-          uniqueVisitors: { $size: "$uniqueVisitors" },
+          uniqueVisitors: { $size: "$uniqueVisitorsSet" },
+          visits: { $size: "$uniqueVisitorsSet" },
         },
       },
       { $sort: { _id: 1 } },
@@ -270,6 +332,7 @@ export class AnalyticsService {
 
   /**
    * Fetches breakdown of traffic sources with orders and conversion rate - strictly excludes Admin data.
+   * Visitors are deduplicated by device / IP.
    */
   async getTrafficSources(startDate: Date, endDate: Date) {
     await connectDB();
@@ -279,16 +342,17 @@ export class AnalyticsService {
       createdAt: { $gte: startDate, $lte: endDate },
       isAdmin: { $ne: true },
       userId: { $nin: adminIds },
+      currentPage: { $not: /^\/admin/ },
+      landingPage: { $not: /^\/admin/ },
     };
 
-    // 1. Group TrafficSession by Source & Category
+    // 1. Group TrafficSession by Source & Category with distinct device / IP
     const sourcesAgg = await TrafficSession.aggregate([
       { $match: matchQuery },
       {
         $group: {
           _id: { source: "$source", category: "$category" },
-          visits: { $sum: 1 },
-          uniqueVisitors: { $addToSet: "$visitorId" },
+          uniqueVisitors: { $addToSet: { $ifNull: ["$ip", "$visitorId"] } },
           sessions: { $sum: 1 },
         },
       },
@@ -296,8 +360,8 @@ export class AnalyticsService {
         $project: {
           source: "$_id.source",
           category: "$_id.category",
-          visits: 1,
-          sessions: 1,
+          visits: { $size: "$uniqueVisitors" },
+          sessions: { $size: "$uniqueVisitors" },
           visitors: { $size: "$uniqueVisitors" },
         },
       },
@@ -473,17 +537,39 @@ export class AnalyticsService {
     const baseFilter = {
       isAdmin: { $ne: true },
       userId: { $nin: adminIds },
+      currentPage: { $not: /^\/admin/ },
+      landingPage: { $not: /^\/admin/ },
     };
 
-    const [activeShoppers, activeSessions, topPagesAgg, platformAgg, recentSessions] = await Promise.all([
-      TrafficSession.countDocuments({
-        ...baseFilter,
-        lastShoppingActivityAt: { $gte: fiveMinutesAgo },
-      }),
-      TrafficSession.countDocuments({
-        ...baseFilter,
-        lastSeenAt: { $gte: fiveMinutesAgo },
-      }),
+    const [activeShoppersAgg, activeSessionsAgg, topPagesAgg, platformAgg, recentSessions] = await Promise.all([
+      TrafficSession.aggregate([
+        {
+          $match: {
+            ...baseFilter,
+            lastShoppingActivityAt: { $gte: fiveMinutesAgo },
+          },
+        },
+        {
+          $group: {
+            _id: { $ifNull: ["$ip", "$visitorId"] },
+          },
+        },
+        { $count: "total" },
+      ]),
+      TrafficSession.aggregate([
+        {
+          $match: {
+            ...baseFilter,
+            lastSeenAt: { $gte: fiveMinutesAgo },
+          },
+        },
+        {
+          $group: {
+            _id: { $ifNull: ["$ip", "$visitorId"] },
+          },
+        },
+        { $count: "total" },
+      ]),
       TrafficSession.aggregate([
         {
           $match: {
@@ -519,6 +605,9 @@ export class AnalyticsService {
         .limit(20)
         .lean(),
     ]);
+
+    const activeShoppers = activeShoppersAgg[0]?.total || 0;
+    const activeSessions = activeSessionsAgg[0]?.total || 0;
 
     const totalActiveInWindow = platformAgg.reduce((sum, p) => sum + p.count, 0) || 1;
 

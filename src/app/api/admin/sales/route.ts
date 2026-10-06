@@ -115,7 +115,7 @@ export async function GET(req: NextRequest) {
             price: p.price,
             totalSold: p.soldCount,
             totalRevenue: p.price * p.soldCount,
-            orderCount: Math.max(1, Math.round(p.soldCount * 0.8)),
+            orderCount: p.soldCount,
             buyersSet: new Set<string>(),
             latestSaleAt: p.updatedAt || p.createdAt,
           });

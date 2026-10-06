@@ -23,6 +23,7 @@ export async function GET(req: NextRequest) {
 
     const [
       totalUsers,
+      activeUsers,
       totalProducts,
       totalOrders,
       totalShares,
@@ -34,6 +35,7 @@ export async function GET(req: NextRequest) {
     ] = await Promise.all([
       // Chỉ đếm khách hàng thông thường, không tính tài khoản Admin
       User.countDocuments({ role: { $ne: "admin" } }),
+      User.countDocuments({ role: { $ne: "admin" }, isActive: true }),
       Product.countDocuments({ status: "active" }),
       // Chỉ đếm đơn hàng từ khách hàng, loại trừ đơn của Admin
       Order.countDocuments({ userId: { $nin: adminUserIds } }),
@@ -79,7 +81,7 @@ export async function GET(req: NextRequest) {
           conversionRate,
           cartAbandonmentRate,
           totalShares,
-          activeUsers: Math.max(1, Math.round(totalUsers * 0.7)),
+          activeUsers,
         },
         funnel: {
           views: funnel.views,

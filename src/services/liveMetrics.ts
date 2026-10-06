@@ -34,14 +34,34 @@ export class LiveMetricsService {
       const fiveMinutesAgo = new Date(now - 5 * 60 * 1000);
       const oneHourAgo = new Date(now - 60 * 60 * 1000);
 
-      // 1. Active shoppers: visitors with shopping activity in the last 5 minutes
-      const activeShoppersCount = await TrafficSession.countDocuments({
-        lastShoppingActivityAt: { $gte: fiveMinutesAgo },
-      });
+      const User = (await import("@/models/User")).default;
+      const adminUsers = await User.find({ role: "admin" }).select("_id").lean();
+      const adminIds = adminUsers.map((u) => u._id);
 
-      // 2. Items added to cart in the last 60 minutes
+      // 1. Active shoppers: distinct visitors/devices with shopping activity in the last 5 minutes (excluding admin)
+      const activeShoppersAgg = await TrafficSession.aggregate([
+        {
+          $match: {
+            isAdmin: { $ne: true },
+            userId: { $nin: adminIds },
+            currentPage: { $not: /^\/admin/ },
+            lastShoppingActivityAt: { $gte: fiveMinutesAgo },
+          },
+        },
+        {
+          $group: {
+            _id: { $ifNull: ["$ip", "$visitorId"] },
+          },
+        },
+        { $count: "total" },
+      ]);
+      const activeShoppersCount = activeShoppersAgg[0]?.total || 0;
+
+      // 2. Items added to cart in the last 60 minutes (excluding admin)
       const cartAddEvents = await AnalyticsEvent.find({
         eventType: "add_to_cart",
+        isAdmin: { $ne: true },
+        userId: { $nin: adminIds },
         createdAt: { $gte: oneHourAgo },
       }).select("metadata").lean();
 
@@ -51,9 +71,10 @@ export class LiveMetricsService {
         cartAddsCount += qty;
       }
 
-      // 3. Successful orders in the last 60 minutes
+      // 3. Successful orders in the last 60 minutes (excluding admin)
       const successfulOrdersCount = await Order.countDocuments({
         orderStatus: "COMPLETED",
+        userId: { $nin: adminIds },
         createdAt: { $gte: oneHourAgo },
       });
 

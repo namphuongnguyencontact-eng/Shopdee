@@ -13,19 +13,33 @@ export async function GET(req: NextRequest) {
     await connectDB();
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search")?.trim() || "";
+    const source = searchParams.get("source")?.trim();
     const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
     const limit = Math.min(50, Math.max(1, parseInt(searchParams.get("limit") || "20", 10)));
     const skip = (page - 1) * limit;
 
     const query: Record<string, unknown> = {};
+    if (source && source !== "all") {
+      query.acquisitionSource = source;
+    }
     if (search) {
       const regex = new RegExp(search, "i");
-      query.$or = [{ name: regex }, { email: regex }, { username: regex }];
+      query.$or = [
+        { name: regex },
+        { email: regex },
+        { username: regex },
+        { acquisitionSource: regex },
+      ];
     }
 
-    const [users, total] = await Promise.all([
+    const [users, total, sourcesSummary] = await Promise.all([
       User.find(query).select("-passwordHash").sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
       User.countDocuments(query),
+      User.aggregate([
+        { $match: { role: { $ne: "admin" } } },
+        { $group: { _id: { $ifNull: ["$acquisitionSource", "Direct"] }, count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+      ]),
     ]);
 
     const userIds = users.map((u) => u._id);
@@ -51,6 +65,7 @@ export async function GET(req: NextRequest) {
       const stat = statsMap.get(u._id.toString());
       return {
         ...u,
+        acquisitionSource: u.acquisitionSource || "Direct",
         orderCount: stat ? stat.orderCount : 0,
         totalSpent: stat ? stat.totalSpent : 0,
       };
@@ -59,6 +74,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       success: true,
       data: usersWithStats,
+      sourcesSummary: sourcesSummary.map((s) => ({ source: s._id, count: s.count })),
       pagination: {
         page,
         limit,

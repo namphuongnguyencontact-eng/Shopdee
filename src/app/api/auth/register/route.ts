@@ -54,6 +54,40 @@ export async function POST(req: NextRequest) {
 
     const passwordHash = await hashPassword(password);
 
+    const {
+      acquisitionSource,
+      acquisitionMedium,
+      acquisitionCampaign,
+      acquisitionReferrer,
+    } = body;
+
+    const userAgent = req.headers.get("user-agent") || "";
+    const refererHeader = req.headers.get("referer") || "";
+    const clientIp =
+      req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+      req.headers.get("x-real-ip")?.trim() ||
+      (req as unknown as { ip?: string }).ip ||
+      "";
+
+    const { classifyTraffic, parseUserAgent } = await import("@/lib/trafficClassifier");
+
+    let finalSource = acquisitionSource?.trim() || "";
+    let finalMedium = acquisitionMedium?.trim() || "";
+    let finalCampaign = acquisitionCampaign?.trim() || "";
+    let finalReferrer = acquisitionReferrer?.trim() || "";
+
+    if (!finalSource || finalSource.toLowerCase() === "direct") {
+      const classified = classifyTraffic(finalReferrer || refererHeader, undefined, userAgent);
+      if (classified.source && classified.source.toLowerCase() !== "direct") {
+        finalSource = classified.source;
+        if (!finalMedium) finalMedium = classified.medium;
+        if (!finalCampaign) finalCampaign = classified.campaign || "";
+      }
+    }
+    if (!finalSource) finalSource = "Direct";
+
+    const clientDevice = parseUserAgent(userAgent).device;
+
     const newUser = await User.create({
       name: name.trim(),
       username: cleanUsername,
@@ -69,6 +103,12 @@ export async function POST(req: NextRequest) {
       xp: 0,
       walletBalance: 0,
       favoriteCategories: [],
+      acquisitionSource: finalSource,
+      acquisitionMedium: finalMedium || "direct",
+      acquisitionCampaign: finalCampaign,
+      acquisitionReferrer: finalReferrer || refererHeader,
+      registrationIp: clientIp,
+      registrationDevice: clientDevice,
       isActive: true,
     });
 

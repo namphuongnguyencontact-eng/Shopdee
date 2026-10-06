@@ -87,7 +87,7 @@ export async function GET(req: NextRequest) {
               price: p.price,
               totalSold: p.soldCount,
               totalRevenue: p.price * p.soldCount,
-              orderCount: Math.max(1, Math.round(p.soldCount * 0.8)),
+              orderCount: p.soldCount,
               buyers: new Set<string>(),
               latestDate: p.updatedAt || p.createdAt,
             });
@@ -225,15 +225,38 @@ export async function GET(req: NextRequest) {
       sheetName = "Danh_Sach_Nguoi_Dung";
       fileName = `shopdee_nguoi_dung_${new Date().toISOString().slice(0, 10)}.xlsx`;
 
-      const users = await User.find({ role: { $ne: "admin" } }).sort({ createdAt: -1 }).lean();
+      const search = searchParams.get("search")?.trim() || "";
+      const source = searchParams.get("source")?.trim();
+
+      const userQuery: Record<string, any> = { role: { $ne: "admin" } };
+      if (source && source !== "all") {
+        userQuery.acquisitionSource = source;
+      }
+      if (search) {
+        const regex = new RegExp(search, "i");
+        userQuery.$or = [
+          { name: regex },
+          { email: regex },
+          { username: regex },
+          { acquisitionSource: regex },
+        ];
+      }
+
+      const users = await User.find(userQuery).sort({ createdAt: -1 }).lean();
 
       dataRows = users.map((u, idx) => ({
         "STT": idx + 1,
         "MÃ NGƯỜI DÙNG": String(u._id),
         "HỌ VÀ TÊN": u.name,
-        "TÊN ĐĂNG NHẬP": u.username,
+        "TÊN ĐĂNG NHẬP": u.username || "",
         "EMAIL": u.email,
         "SỐ ĐIỆN THOẠI": u.phone || "",
+        "NGUỒN ĐẾN TỪ (NỀN TẢNG)": u.acquisitionSource || "Direct",
+        "KÊNH (MEDIUM)": u.acquisitionMedium || "organic",
+        "CHIẾN DỊCH (CAMPAIGN)": u.acquisitionCampaign || "",
+        "REFERRER URL": u.acquisitionReferrer || "",
+        "THIẾT BỊ ĐĂNG KÝ": u.registrationDevice || "",
+        "IP ĐĂNG KÝ": u.registrationIp || "",
         "GIỚI TÍNH": u.gender || "Chưa cập nhật",
         "NGÀY SINH": u.birthDate || "",
         "TỈNH / THÀNH PHỐ": u.city || u.defaultShippingAddress?.city || "",

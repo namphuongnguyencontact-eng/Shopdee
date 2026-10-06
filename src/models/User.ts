@@ -23,6 +23,12 @@ export interface IUser extends Document {
   xp: number;
   walletBalance: number;
   favoriteCategories: string[];
+  acquisitionSource?: string;
+  acquisitionMedium?: string;
+  acquisitionCampaign?: string;
+  acquisitionReferrer?: string;
+  registrationIp?: string;
+  registrationDevice?: string;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -51,6 +57,12 @@ const UserSchema = new Schema<IUser>(
     xp: { type: Number, default: 0 },
     walletBalance: { type: Number, default: 0 },
     favoriteCategories: { type: [String], default: [] },
+    acquisitionSource: { type: String, default: "Direct", index: true },
+    acquisitionMedium: { type: String, default: "direct" },
+    acquisitionCampaign: { type: String, default: "" },
+    acquisitionReferrer: { type: String, default: "" },
+    registrationIp: { type: String, default: "" },
+    registrationDevice: { type: String, default: "desktop" },
     isActive: { type: Boolean, default: true },
   },
   { timestamps: true }

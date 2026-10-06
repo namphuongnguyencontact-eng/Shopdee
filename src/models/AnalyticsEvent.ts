@@ -69,6 +69,7 @@ AnalyticsEventSchema.index({ source: 1, createdAt: -1 });
 AnalyticsEventSchema.index({ visitorId: 1, createdAt: -1 });
 AnalyticsEventSchema.index({ sessionId: 1, createdAt: -1 });
 AnalyticsEventSchema.index({ productId: 1, eventType: 1, createdAt: -1 });
+AnalyticsEventSchema.index({ ip: 1, path: 1, eventType: 1 });
 
 export const AnalyticsEvent: Model<IAnalyticsEvent> =
   mongoose.models.AnalyticsEvent || mongoose.model<IAnalyticsEvent>("AnalyticsEvent", AnalyticsEventSchema);

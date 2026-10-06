@@ -25,8 +25,18 @@ export async function POST(req: NextRequest) {
     const userId = userSession?.userId;
     const isAdmin = userSession?.role === "admin";
 
+    // Strictly exclude admin dashboard activities and admin users
+    if (path.startsWith("/admin") || isAdmin) {
+      return NextResponse.json({ success: true, ignored: true });
+    }
+
+    const ip =
+      req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+      req.headers.get("x-real-ip")?.trim() ||
+      (req as unknown as { ip?: string }).ip ||
+      "127.0.0.1";
+
     const isShoppingRoute =
-      !path.startsWith("/admin") &&
       (path.startsWith("/products") ||
         path.startsWith("/product/") ||
         path.startsWith("/cart") ||
@@ -41,8 +51,10 @@ export async function POST(req: NextRequest) {
     const existingSession = await TrafficSession.findOne({ sessionId });
 
     if (!existingSession) {
-      // Determine if new visitor
-      const previousVisitorSession = await TrafficSession.findOne({ visitorId });
+      // Determine if new visitor by visitorId or ip
+      const previousVisitorSession = await TrafficSession.findOne({
+        $or: [{ visitorId }, ...(ip && ip !== "127.0.0.1" ? [{ ip }] : [])],
+      });
       const isNewVisitor = !previousVisitorSession;
 
       // Classify traffic
@@ -53,7 +65,7 @@ export async function POST(req: NextRequest) {
         sessionId,
         visitorId,
         userId,
-        isAdmin,
+        isAdmin: false,
         firstSeenAt: now,
         lastSeenAt: now,
         lastShoppingActivityAt: isShoppingRoute ? now : undefined,
@@ -70,19 +82,20 @@ export async function POST(req: NextRequest) {
         device: clientDevice.device,
         browser: clientDevice.browser,
         os: clientDevice.os,
+        ip,
         pageViewCount: 1,
         isNewVisitor,
       });
     } else {
       existingSession.lastSeenAt = now;
       existingSession.currentPage = path;
-      if (isAdmin) {
-        existingSession.isAdmin = true;
+      if (!existingSession.ip && ip) {
+        existingSession.ip = ip;
       }
       if (userId && !existingSession.userId) {
         existingSession.userId = userId as any;
       }
-      if (isShoppingRoute && !isAdmin) {
+      if (isShoppingRoute) {
         existingSession.lastShoppingActivityAt = now;
       }
       await existingSession.save();

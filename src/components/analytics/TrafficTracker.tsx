@@ -33,6 +33,20 @@ export function getSessionId(): string {
   return sid;
 }
 
+export function getUserAcquisitionSource(): {
+  source: string;
+  medium?: string;
+  campaign?: string;
+  referrer?: string;
+} {
+  if (typeof window === "undefined") return { source: "Direct" };
+  const source = localStorage.getItem("shopdee_user_source") || "Direct";
+  const medium = localStorage.getItem("shopdee_user_medium") || undefined;
+  const campaign = localStorage.getItem("shopdee_user_campaign") || undefined;
+  const referrer = localStorage.getItem("shopdee_user_referrer") || undefined;
+  return { source, medium, campaign, referrer };
+}
+
 export default function TrafficTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -41,13 +55,51 @@ export default function TrafficTracker() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (pathname?.startsWith("/admin")) return; // Do not track admin back-office pages as customer traffic
+    if (pathname?.startsWith("/admin")) return; // Do not track admin back-office pages
+
+    // Check if logged in user is admin
+    try {
+      const authUser = localStorage.getItem("shopdee_auth_user");
+      if (authUser) {
+        const parsed = JSON.parse(authUser);
+        if (parsed?.role === "admin") return;
+      }
+    } catch {}
 
     const visitorId = getVisitorId();
     const sessionId = getSessionId();
     const fullPath = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
 
-    // 1. Initial Heartbeat & Session Register
+    // 1. Initial Source Detection & Store in localStorage
+    if (!localStorage.getItem("shopdee_user_source")) {
+      const initialReferrer = document.referrer || "";
+      const refLower = initialReferrer.toLowerCase();
+      const utmSource = (searchParams?.get("utm_source") || "").toLowerCase();
+
+      let detected = "Direct";
+      if (utmSource.includes("threads") || refLower.includes("threads.net")) detected = "Threads";
+      else if (utmSource.includes("tiktok") || refLower.includes("tiktok.com") || searchParams?.has("ttclid")) detected = "TikTok";
+      else if (utmSource.includes("facebook") || utmSource === "fb" || refLower.includes("facebook.com") || searchParams?.has("fbclid")) detected = "Facebook";
+      else if (utmSource.includes("instagram") || utmSource === "ig" || refLower.includes("instagram.com")) detected = "Instagram";
+      else if (utmSource.includes("google") || refLower.includes("google.com") || searchParams?.has("gclid")) detected = "Google";
+      else if (utmSource.includes("zalo") || refLower.includes("zalo.me")) detected = "Zalo";
+      else if (utmSource.includes("youtube") || refLower.includes("youtube.com")) detected = "YouTube";
+      else if (utmSource) detected = utmSource.charAt(0).toUpperCase() + utmSource.slice(1);
+      else if (initialReferrer) {
+        try {
+          detected = new URL(initialReferrer).hostname;
+        } catch {
+          detected = "Referral";
+        }
+      }
+
+      localStorage.setItem("shopdee_user_source", detected);
+      localStorage.setItem("shopdee_user_referrer", initialReferrer);
+      if (searchParams?.get("utm_medium")) localStorage.setItem("shopdee_user_medium", searchParams.get("utm_medium")!);
+      if (searchParams?.get("utm_campaign")) localStorage.setItem("shopdee_user_campaign", searchParams.get("utm_campaign")!);
+    }
+
+    // 2. Initial Heartbeat & Session Register
     if (!isInitialHeartbeat.current) {
       isInitialHeartbeat.current = true;
       const initialReferrer = document.referrer || "";
@@ -99,6 +151,14 @@ export default function TrafficTracker() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (pathname?.startsWith("/admin")) return; // Do not track admin back-office pages
+
+    try {
+      const authUser = localStorage.getItem("shopdee_auth_user");
+      if (authUser) {
+        const parsed = JSON.parse(authUser);
+        if (parsed?.role === "admin") return;
+      }
+    } catch {}
 
     const interval = setInterval(() => {
       const visitorId = getVisitorId();

@@ -55,6 +55,13 @@ export default function RegisterPage() {
     setError("");
 
     try {
+      const acq = typeof window !== "undefined" ? {
+        source: localStorage.getItem("shopdee_user_source") || "Direct",
+        medium: localStorage.getItem("shopdee_user_medium") || undefined,
+        campaign: localStorage.getItem("shopdee_user_campaign") || undefined,
+        referrer: localStorage.getItem("shopdee_user_referrer") || document.referrer || undefined,
+      } : { source: "Direct" };
+
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -65,6 +72,10 @@ export default function RegisterPage() {
           password,
           gender,
           birthDate,
+          acquisitionSource: acq.source,
+          acquisitionMedium: acq.medium,
+          acquisitionCampaign: acq.campaign,
+          acquisitionReferrer: acq.referrer,
         }),
       });
       const json = await res.json();

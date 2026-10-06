@@ -144,23 +144,17 @@ export async function GET(
       else if (gender === "female" || gender === "Nữ") genderCounter.female += 1;
       else genderCounter.other += 1;
 
-      // Age group estimation
-      let ageGroup = "18 - 24 (Gen Z)";
+      // Age group estimation based strictly on real user birthDate
+      let ageGroup = "Chưa cập nhật";
       if (u?.birthDate) {
         const birthYear = new Date(u.birthDate).getFullYear();
-        const age = new Date().getFullYear() - birthYear;
-        if (age < 18) ageGroup = "< 18 (Học sinh)";
-        else if (age <= 24) ageGroup = "18 - 24 (Gen Z)";
-        else if (age <= 34) ageGroup = "25 - 34 (Văn phòng)";
-        else if (age <= 44) ageGroup = "35 - 44 (Gia đình)";
-        else ageGroup = "45+ (Trung niên)";
-      } else {
-        // Realistic Gen Z distribution based on category
-        const cat = (product.categorySlug || "").toLowerCase();
-        if (cat.includes("kpop") || cat.includes("decor") || cat.includes("my-pham")) {
-          ageGroup = Math.random() > 0.3 ? "18 - 24 (Gen Z)" : "25 - 34 (Văn phòng)";
-        } else if (cat.includes("laptop") || cat.includes("cong-nghe") || cat.includes("dien-thoai")) {
-          ageGroup = Math.random() > 0.5 ? "18 - 24 (Gen Z)" : "25 - 34 (Văn phòng)";
+        if (!isNaN(birthYear)) {
+          const age = new Date().getFullYear() - birthYear;
+          if (age < 18) ageGroup = "< 18 (Học sinh)";
+          else if (age <= 24) ageGroup = "18 - 24 (Gen Z)";
+          else if (age <= 34) ageGroup = "25 - 34 (Văn phòng)";
+          else if (age <= 44) ageGroup = "35 - 44 (Gia đình)";
+          else ageGroup = "45+ (Trung niên)";
         }
       }
       ageGroupCounter[ageGroup] = (ageGroupCounter[ageGroup] || 0) + 1;
